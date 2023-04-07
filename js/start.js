@@ -1,3 +1,5 @@
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
 import {data} from "./modules/data.js";
 import {fetchAllLaws} from "./modules/fetch.js";
 import {setMainTable} from "./modules/table_create_standard.js";
@@ -45,6 +47,15 @@ function initStandardTable() {
         data.table.pageCount = data.const.PAGE_MAX;
 
         data.table.lawSet.forEach(law => law.statusClass = getStatusClass(law.currentPhase.status));
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            "fontFamily": "Proba Pro",
+            themeVariables: {
+                fontSize: '16px'
+            }
+        });
 
         $('.z_loading_screen').remove();
         setMainTable();

@@ -1,6 +1,7 @@
 import {data} from "./data.js";
 import {getTimeDelta} from "./date_operations.js";
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+import {setStepperListener} from "./table_interactions_graph.js";
 
 export async function setSoloTimeGraph(el) {
     el.tooltip('hide');
@@ -51,6 +52,8 @@ export async function setSoloTimeGraph(el) {
                 </div>
                 </div>
             </div>`);
+        setStepperListener();
+
 
         let passingTimeStat = [];
         for (const item in data.table.lawSet[0].time_stat)
@@ -71,8 +74,6 @@ export async function setSoloTimeGraph(el) {
 
         createDonutChart({data: passingTimeStat, colors: passingTimeStat.map(el => data.table.lawSet[0].color_stat[el[0].replace(/[<>]/g, '')]) /*[]*/}, "z_stgs_total");
         createDonutChart({data: committeeTimeStat, colors: undefined}, "z_stgs_committee");
-
-        //await createMermaidFlowchart(data.mermaidCharts.registration, 'z_stg_mermaid_sub_container');
 
         $('.z_solo').css('padding-top',
             parseInt($('.z_solo').css('padding-top')) + parseInt($('#z_solo_time_graph_container').css('height')) + 'px');
@@ -134,15 +135,18 @@ export function createDonutChart(timeStat, parentId) {
     });
 }
 
-export async function createMermaidFlowchart(mermaidCode, id) {
-    const drawDiagram = async function () {
-        const graphDefinition = mermaidCode;
-
-        let element = document.querySelector('#' + id);
+export async function createMermaidFlowchart(mermaidCode, root) {
+    const drawDiagram = async function() {
+        let element = document.getElementById(root);
         let parent = element.parentNode;
-        let svg = await mermaid.render(id, graphDefinition);
+        let svg = await mermaid.render('mermaidGraph', mermaidCode);
+
         parent.innerHTML = element.outerHTML + parent.innerHTML;
-        document.querySelector('#' + id).innerHTML = svg['svg'];
+        document.getElementById(root).innerHTML = svg['svg'];
+
+        const svgElement = parent.querySelector('svg');
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
     };
 
     await drawDiagram();
