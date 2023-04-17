@@ -1,4 +1,4 @@
-export let data = {
+export const data = {
     const: {
         PAGE_SIZE: 25,
         STANDARD_YEAR: 2023,
@@ -242,6 +242,9 @@ export let data = {
     ],
     */
     mermaidCharts: {
+        svg: {
+            register: ``
+        },
         type: 'graph RL',
         classes: `
             classDef bold font-weight:bold;

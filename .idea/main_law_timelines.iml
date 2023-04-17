@@ -13,5 +13,7 @@
     <orderEntry type="library" name="@types/google__maps" level="application" />
     <orderEntry type="library" name="@types/google-maps" level="application" />
     <orderEntry type="library" name="@types/chart.js" level="application" />
+    <orderEntry type="library" name="@types/jquery-mousewheel" level="application" />
+    <orderEntry type="library" name="@types/raphael" level="application" />
   </component>
 </module>

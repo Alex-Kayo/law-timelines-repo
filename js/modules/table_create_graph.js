@@ -2,11 +2,19 @@ import {data} from "./data.js";
 import {getTimeDelta} from "./date_operations.js";
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
 import {setStepperListener} from "./table_interactions_graph.js";
+import {escText} from "./parse_text.js";
+import { cachedSVG } from "./data_svg.js";
 
 export async function setSoloTimeGraph(el) {
     el.tooltip('hide');
 
+    const panelContainer = $('#z_panel_container_solo');
+    const tableContainer = $('#z_table_wrapper_solo');
+
     if (el.html().includes('chart')) {
+        $('#table_stat').css({'height': 'max-content', 'min-height': '0'});
+        panelContainer.css('height', '100%');
+        tableContainer.css('display', 'none');
         el.html('<i class="fa fa-times" aria-hidden="true"></i>');
 
         let steps = data.table.lawSet[0].steps;
@@ -15,7 +23,7 @@ export async function setSoloTimeGraph(el) {
         for (let i = 0; i < steps.length; i++) {
             stepsHTML += `
                 <div class="step-circle step-${steps[i].step} ${(steps[i].class !== undefined) ? steps[i].class : ''} ${(steps[i].active === 1) ? 'z_active' : ''}"
-                rel="tooltip" data-toggle="tooltip" data-placement="top" data-html="true" title=""
+                rel="tooltip" data-icon="${escText(data.stepsParams[steps[i].step].text)}" data-toggle="tooltip" data-placement="top" data-html="true" title=""
                     data-original-title="${steps[i].title}">${data.stepsParams[steps[i].step].text}</div>
                 ${(steps[i]['small'] !== undefined) ? `
                     <div class="z_solo_tg_steps_link z_small z_active" style="background-color:var(${'--prj_' + steps[i]['small']})"></div>
@@ -78,6 +86,9 @@ export async function setSoloTimeGraph(el) {
         $('.z_solo').css('padding-top',
             parseInt($('.z_solo').css('padding-top')) + parseInt($('#z_solo_time_graph_container').css('height')) + 'px');
     } else {
+        $('#table_stat').css({'height': '', 'min-height': ''});
+        panelContainer.css('height', '');
+        tableContainer.css('display', '');
         el.html('<i class="fa fa-pie-chart" aria-hidden="true"></i>');
 
         $('#z_solo_time_graph_container').remove();
@@ -135,19 +146,28 @@ export function createDonutChart(timeStat, parentId) {
     });
 }
 
-export async function createMermaidFlowchart(mermaidCode, root) {
+export async function createMermaidFlowchart(mermaidCode, rootId) {
     const drawDiagram = async function() {
-        let element = document.getElementById(root);
+        let element = document.getElementById(rootId);
         let parent = element.parentNode;
         let svg = await mermaid.render('mermaidGraph', mermaidCode);
 
-        parent.innerHTML = element.outerHTML + parent.innerHTML;
-        document.getElementById(root).innerHTML = svg['svg'];
+        parent.innerHTML = element.outerHTML/* + parent.innerHTML*/;
+        document.getElementById(rootId).innerHTML = svg['svg'];
 
         const svgElement = parent.querySelector('svg');
-        svgElement.setAttribute('width', '100%');
-        svgElement.setAttribute('height', '100%');
+        //svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '200%');
     };
 
     await drawDiagram();
+}
+
+export function setCachedMermaidFlowchart(type, rootId = 'z_stg_mermaid_sub_container') {
+    if (cachedSVG.mermaidCharts[type] === undefined)
+        return ;
+
+    const root = document.getElementById(rootId);
+    const svg = cachedSVG.mermaidCharts.container(cachedSVG.mermaidCharts[type]);
+    root.innerHTML = svg;
 }

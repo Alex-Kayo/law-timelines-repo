@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/chart.js, @types/google-maps, @types/google.maps, @types/google__maps, @types/jquery}" />
+    <file url="PROJECT" libraries="{@types/chart.js, @types/google-maps, @types/google.maps, @types/google__maps, @types/jquery, @types/jquery-mousewheel, @types/raphael}" />
   </component>
 </project>
