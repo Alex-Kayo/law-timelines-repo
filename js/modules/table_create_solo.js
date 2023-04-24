@@ -307,7 +307,7 @@ export function setSoloCommitteeFirst(committee, index) {
                         <span class="ava">
                             <a href="https://meeting.rada.gov.ua/work/vote/${committee.person.nreg}" class="avaimg ${committee.person.nreg}" target="_blank"></a>
                         </span>
-                        <span><b>${escText(committee.person.surname)}</b><br/>${committee.person.firstname} ${committee.person.patronymic}</span>
+                        <span><b>${escText(committee.person.surname)}</b><br/>${escText(committee.person.firstname + ' ' + committee.person.patronymic)}</span>
                     </span>
                 </span>
             <div class="small text-warning my-1">${committee.person.post_name}</div>

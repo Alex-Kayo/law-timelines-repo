@@ -5,16 +5,10 @@ import {setStepperListener} from "./table_interactions_graph.js";
 import {escText} from "./parse_text.js";
 import { cachedSVG } from "./data_svg.js";
 
-export async function setSoloTimeGraph(el) {
+export function setSoloTimeGraph(el) {
     el.tooltip('hide');
 
-    const panelContainer = $('#z_panel_container_solo');
-    const tableContainer = $('#z_table_wrapper_solo');
-
     if (el.html().includes('chart')) {
-        $('#table_stat').css({'height': 'max-content', 'min-height': '0'});
-        panelContainer.css('height', '100%');
-        tableContainer.css('display', 'none');
         el.html('<i class="fa fa-times" aria-hidden="true"></i>');
 
         let steps = data.table.lawSet[0].steps;
@@ -43,7 +37,7 @@ export async function setSoloTimeGraph(el) {
             <div id="z_solo_time_graph_container">
                 ${stepsHTML}
                 <div id="z_stg_mermaid_container">
-                    <div id="z_stg_mermaid_sub_container"></div>
+                    <div id="z_stg_mermaid_sub_container" class="scroll-heavy"></div>
                 </div>
                 <div id="z_stg_sub_container">
                 <div>
@@ -86,10 +80,8 @@ export async function setSoloTimeGraph(el) {
         $('.z_solo').css('padding-top',
             parseInt($('.z_solo').css('padding-top')) + parseInt($('#z_solo_time_graph_container').css('height')) + 'px');
     } else {
-        $('#table_stat').css({'height': '', 'min-height': ''});
-        panelContainer.css('height', '');
-        tableContainer.css('display', '');
         el.html('<i class="fa fa-pie-chart" aria-hidden="true"></i>');
+        $('#z_table_wrapper_solo').css('display', '');
 
         $('#z_solo_time_graph_container').remove();
         $('.z_solo').css('padding-top', 'calc(var(--top-panel-height-solo) + var(--solo-progress-bar-height)');
