@@ -10,20 +10,26 @@ export function soloListener() {
         $('.tooltip').remove();
         jQuery(this).html('<i class="fa fa-spinner fa-pulse"></i>');//'<div class="lds-dual-ring-mini"></div>');
 
-        createSoloTimeline(jQuery(this).attr('id'));
+        createSoloTimeline({id: jQuery(this).attr('id')});
     });
 }
 
 export function removeSoloListener() {
-    $('#z_solo_close').on('click', function () {
-        $('*').tooltip('hide');
-        removeSoloTimeline();//jQuery(this).attr('id').split(/(?<=[a-z])(?=\d+?)/)[1]);
-    })
+    $('#z_solo_close').on('click', removeSoloTimeline);
+
+    const parseEsc = (e) => {
+        if (e.key === "Escape") { // escape key maps to keycode `27`
+            removeSoloTimeline();
+            $(document).off('keyup', parseEsc);
+        }
+    }
+    $(document).on('keyup', parseEsc);
 }
 
 export function removeSoloTimeline() {
+    $('*').tooltip('hide');
     $('#z_panel_container_solo').remove();
-    $(`#solo_timeline${data.table.type.split(/(?<=[a-z])(?=\d+?)/)[1]}`).remove();
+    $(`.z_solo`).remove();
 
     restoreTable();
 
@@ -68,7 +74,7 @@ export function soloPassingLineListener() {
         data.table.scrollTo.target = jQuery(this).data('target');
         //data.js.table.scrollTo.block = 'center';
         scrollToContent();
-        blinkBackground($(`#${jQuery(this).data('target')}`), '#ffd8d5', 3, 500);
+        blinkBackground($(`#${jQuery(this).data('target')}`), '', 3, 500);
     });
     $('.z_row_solo').on('mouseenter', function() {
         let el = jQuery(this);
@@ -80,7 +86,7 @@ export function soloPassingLineListener() {
             width: el.data.js('len') + '%'
         });*/
         if (el.data('target') === undefined) {
-            $('#z_solo_progress_location').css({
+            bar.css({
                 display: 'flex',
                 left: el.data('from') + '%',
                 width: el.data('len') + '%'

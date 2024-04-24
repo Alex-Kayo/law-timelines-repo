@@ -1,0 +1,180 @@
+/* -------------
+ * Buttons
+ * ------------- */
+button {margin:0;padding:0;border:none;background-color:transparent;cursor:pointer;overflow:visible;outline:none;moz-outline:none;}
+*:first-child+html button[type]{width:1;} /* IE7 */
+
+button span {
+	background: transparent url(elements/btn_right.gif) no-repeat scroll right top;
+	display: block;
+	float: left;
+	padding: 0px 4px 0px 0px; /* sliding doors padding */
+	margin: 0px;
+}
+
+button span span {
+	background: transparent url(elements/btn_left.gif) no-repeat;
+	color: #FFFFFF;
+	padding: 1px 4px 0px 8px;
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 13px;
+	text-transform: lowercase;
+	display: block;
+	text-decoration: none;
+}
+
+/* -------------
+ * Inputs
+ * ------------- */
+.jNiceInputWrapper {
+	
+	float:left;
+}
+
+.jNiceInputInner {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	border: 1px solid #D2D2D2;
+	height: 28px;
+	background: white;
+}
+
+.jNiceInputInner input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#404040;	
+	*line-height: 15px;/* IE Hacks */
+	*height: 15px;/* IE Hacks */
+	vertical-align:middle;padding:0;margin:0;background:none;border:none;outline:none;
+}
+.jNiceInputWrapper .jNiceInputInner input.form-text {
+	height: auto;
+	padding: 6px 5px 0;
+	width: 58px;
+	border: none;
+	background: transparent;
+}
+
+.jNiceInputWrapper_hover { background-position: left bottom; }
+.jNiceInputWrapper_hover .jNiceInputInner { background-position: right bottom; }
+
+
+/* -------------
+ * Radios
+ * ------------- */
+.jRadioWrapper { float: left; z-index: 2; }
+.jNiceRadio {
+	background: transparent url(/img/radio.png) no-repeat center top;
+	height: 18px;
+	width: 14px;
+	position:absolute;left:0px;top:0px;cursor:pointer;vertical-align:middle;
+}
+
+
+/* -------------
+ * Checkboxes
+ * ------------- */
+.jNiceCheckbox {
+	background: transparent url(/img/checkbox.png) no-repeat center top;
+	height: 13px;
+	width: 13px;
+	position:absolute;left:0px;top:0px;z-index:2;cursor:pointer;
+}
+
+/* -------------
+ * Checked - Used for both Radio and Checkbox
+ * ------------- */
+.jNiceChecked { background-position: center bottom;}
+
+/* -------------
+ * Selects
+ * ------------- */
+.jNiceWrapper select {
+	border:none;
+	margin:0;
+	padding:0;
+	min-width: 42px;
+}
+
+.jNiceSelectWrapper {
+	height: 22px;
+	width:100% !important;
+	left:0px;
+	top:0px;
+	z-index:3;
+	position:absolute;
+}
+.jNiceSelectWrapper>div{
+	position: relative;
+}
+.jNiceWrapper iframe {position:absolute;z-index:1;width:100%;left:0px;top:0px;}
+.jNiceSelectWrapper .jNiceSelectText {
+  background: transparent url(/img/select_jnice_left.png) no-repeat 0 0;
+	height: 22px;
+	line-height: 22px;
+	width: 100% !important;
+	padding: 0px 9px 0 9px;
+	border: none;
+	overflow:hidden;
+	float:none;
+	position:absolute;
+	z-index:100;
+	left: 0;
+	top: 0;
+	white-space:nowrap;
+}
+
+.jNiceSelectWrapper .jNiceSelectOpen {
+	width: 22px;
+	height: 22px;
+	background: transparent url(/img/select_jnice_right.png) no-repeat center center;
+	z-index:100;
+	display:block;
+	position:absolute;
+	right: -22px;
+	top: 0px;
+	border: none;
+}
+#b_filter .jNiceSelectWrapper ul {
+	top: 20px;
+	background-color: #FFFFFF;
+	border: solid 1px #CCC;
+	max-height: 157px;
+	overflow-y: auto;
+	position:absolute;
+	left:0px;
+	list-style:none;
+	display: none;
+	margin:0;
+	padding: 0;
+	z-index: 99;
+	width: 100%;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+#b_filter .jNiceSelectWrapper ul li{
+  padding: 0;
+  float: none;
+}
+.jNiceSelectWrapper ul a {
+	color:#888888;
+	background-color: #FFF;
+	display:block;
+  padding: 3px 8px;
+  text-decoration:none;
+	white-space: nowrap;
+}
+.jNiceSelectWrapper ul a:hover { background:#F6F6F6;}
+.jNiceSelectWrapper ul a.selected {background: #EDEDED;}
+
+.jNiceFocus { border: dotted 1px #666666; }
+
+.jNiceHidden {opacity:0;z-index:-1;position:relative;}
+.jNiceWrapper {position:relative;vertical-align:top;width:100%;}
+.jNiceWrapper input {outline:none;moz-outline:none;}

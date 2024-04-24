@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <title>Feedback form</title>
+
+        <link rel="stylesheet" href="default/main_page/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="fonts/ProbaPro/stylesheet.css" />
+        <link rel="stylesheet" type="text/css" href="default/main_page/css/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="default/main_page/css/slick/slick-theme.css"/>
+        <link rel="stylesheet" href="default/main_page/css/nice-select.min.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="default/main_page/css/bootstrap-datepicker.min.css" />
+        <link rel="stylesheet" href="default/main_page/css/bootstrap-select.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.scrollbar.css" />
+        <link rel="stylesheet" type="text/css" href="/sources/css/atomic-bulldog-grid.min.css" media="screen and (min-width: 768px)">
+        <link rel="stylesheet" type="text/css" href="/sources/css/atomic-bulldog-grid-fallback.min.css" media="screen and (min-width: 768px)">
+        <link rel="stylesheet" type="text/css" href="/sources/css/atomic-bulldog-grid-fallback-ie.min.css" media="screen and (min-width: 768px)">
+        <link rel="stylesheet" type="text/css" href="default/main_page/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="default/main_page/css/ui-lightness/jquery-ui-1.8.18.custom.css"  />
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/popper.min.js"> </script>
+        <script src="js/bootstrap.min.js"> </script>
+        <script src="js/bootstrap-select.min.js"></script>
+        <script src="js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
+        <script src="js/locales/bootstrap-datepicker.uk.min.js" charset="UTF-8"></script>
+        <script src="js/tinynav.min.js"></script>
+        <script src="js/jquery.circliful.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="js/slick/slick.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/fontawesome/all.min.js"></script>
+        <script src="js/recaptcha/api.js"></script>
+        <script src="js/jquery.scrollbar.min.js"></script>
+        
+        <!--[if IE 9]>
+        <link href="/sources/css/bootstrap-ie9.min.css" rel="stylesheet">
+        <![endif]-->
+        <!--[if lte IE 8]>
+        <link href="/sources/css/bootstrap-ie8.min" rel="stylesheet">
+        <script src="/sources/js/html5shiv@3.7"></script>
+        <![endif]-->
+
+        <!-- for Captcha -->
+        <script src='js/recaptcha/api.js'></script>
+
+        <script src="default/feedbackakred/js.js"></script>
+
+    </head>
+    <body>
+        <div id="page">
+            <div id="header">
+
+                <div class="header_body">
+
+                    <div class="logo-main">
+                        <a href="/">
+                            <span class="rada-logo">  </span>
+                            <img src="img/logo-print.png" srcset="img/logo-print.png 2x" width="105" height="80" alt="" class="logo-print">
+                        </a>
+
+                        <h1><a href="/">Верховна Рада України</a></h1>
+                        <p>Офіційний веб-портал парламенту України</p>
+
+                    </div>
+
+                    <div class="lang_block">
+                        <select class="selectpicker">
+                            <option>Українською</option>
+                            <option>In English</option>
+                            <option>На русском</option>
+                        </select>
+                        <svg class="icn-world" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path class="icn-world__fill" fill-rule="evenodd" d="M16.55 18.571c.497-.958.883-2.078 1.13-3.314a11.339 11.339 0 0 0 1.902-.725 8.026 8.026 0 0 1-3.031 4.04m-12.133-4.04a11.35 11.35 0 0 0 1.902.725c.248 1.236.633 2.356 1.129 3.314a8.032 8.032 0 0 1-3.031-4.039m3.03-9.104c-.26.503-.49 1.048-.685 1.633-.335-.162-.56-.314-.67-.437a8.08 8.08 0 0 1 1.356-1.196m10.454 1.19c-.114.127-.338.278-.666.44a11.431 11.431 0 0 0-.686-1.63c.495.345.946.747 1.352 1.19m-.164 2.41a5.426 5.426 0 0 0 1.326-.773 7.946 7.946 0 0 1 .915 3.347c-.1.415-.78.978-2.012 1.455.02-.347.032-.7.032-1.057 0-1.039-.092-2.036-.261-2.973m-4.74 4.95V9.972a17.732 17.732 0 0 0 2.81-.354 15.08 15.08 0 0 1 .102 4.018c-.847.17-1.816.294-2.911.341m0 5.726v-3.726a22.416 22.416 0 0 0 2.51-.244c-.552 1.974-1.502 3.39-2.51 3.97m-2-3.726v3.726c-1.008-.58-1.958-1.996-2.51-3.97.812.126 1.657.21 2.51.244m0-11.68v3.668a15.244 15.244 0 0 1-2.326-.29C9.24 6.01 10.097 4.817 11 4.296m4.326 3.377c-.656.14-1.432.243-2.326.291V4.297c.904.52 1.76 1.712 2.326 3.377M8 12c0-.844.07-1.64.192-2.382.885.19 1.842.307 2.808.354v4.005a18.937 18.937 0 0 1-2.911-.34A15.08 15.08 0 0 1 7.999 12m-3.978-.398a7.932 7.932 0 0 1 .915-3.347 5.4 5.4 0 0 0 1.325.772A16.773 16.773 0 0 0 6 12c0 .357.012.71.032 1.057-1.232-.477-1.913-1.04-2.011-1.455M22 11.5c0-.06-.023-.112-.034-.168C21.62 6.13 17.288 2 12 2c-5.288 0-9.62 4.13-9.966 9.332-.01.056-.034.108-.034.168 0 .054.014.106.018.16-.004.114-.018.225-.018.34 0 5.513 4.487 10 10 10 5.514 0 10-4.487 10-10 0-.115-.013-.226-.017-.34.004-.054.017-.106.017-.16"/>
+                        </svg>
+
+                        <a href="#" class="old-version">Стара версія</a>
+
+                    </div>
+
+
+                </div>
+
+                <!-- navbar -->
+                <nav class="navbar navbar-dark navbar-expand-lg" id="navbar">
+                    <a class="navbar-brand" href="#">Верховна Рада України</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <!--TOP MENU cut -->
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/">Верховна Рада</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Діяльність
+                                </a>
+                                <!-- dropdown-menu -->
+                                <div class="dropdown-menu">
+                                    <div class="submenu_table">
+                                        <div class="submenu_row">
+                                            <div class="submenu_col">
+                                                <h3>Міжнародна діяльність</h3>
+                                                <ul>
+                                                    <li><a href="#">Зареєстровані за поточний тиждень</a></li>
+                                                    <li><a href="#">Надані народним депутатам</a></li>
+                                                    <li><a href="#">Знаходяться на розгляді в комітетах</a></li>
+                                                    <li><a href="#">Прийняті на поточній сесії</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col">
+                                                <h3>Очищення влади</h3>
+                                                <ul>
+                                                    <li><a href="#">Загальна інформація</a></li>
+                                                    <li><a href="#">Документи, якими керується Апарат Верховної Ради України при проведенні перевірки достовірності відомостей щодо застосування заборон передбачених положеннями Закону України «Про очищення влади»</a></li>
+                                                    <li><a href="#">Перелік посад та осіб, щодо яких проводиться перевірка</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col">
+                                                <h3>Запобігання та протидія корупції</h3>
+                                                <ul>
+                                                    <li><a href="#">Акти антикорупційного законодавства</a></li>
+                                                    <li><a href="#">Нормативні та організаційно-розпорядчі документи Апарату Верховної Ради України з питань запобігання корупції</a></li>
+                                                    <li><a href="#">Інформаційно-довідкові матеріали</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col divider_col">
+                                                <ul>
+                                                    <li><a href="#">Становлення української державності</a></li>
+                                                    <li><a href="#">Конституційний процес в Україні</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                        </div><!--/submenu_row-->
+                                    </div><!--/submenu_table-->
+                                </div>
+                                <!-- /dropdown-menu -->
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Законотворчість
+                                </a>
+
+                                <!-- dropdown-menu -->
+                                <div class="dropdown-menu">
+                                    <div class="submenu_table">
+                                        <div class="submenu_row">
+                                            <div class="submenu_col">
+                                                <h3>Законопроекти</h3>
+                                                <ul>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/zweb2/webproc2">Пошук за реквізитами</a></li>
+                                                    <li><a href="http://static.rada.gov.ua/site/bills/info/zak_rules.pdf">Правила оформлення проектів законів та основні вимоги законодавчої техніки</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/zweb2/webproc555">Зареєстровані за поточний тиждень</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/zweb2/pkg_zpsended.by_date">Надано народним депутатам</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/zweb2/webproc3_current">Знаходяться на розгляді в комітетах</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/site2/p_bills_stand_laws">Прийняті на поточній сесії</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col">
+                                                <h3>Пленарні засідання</h3>
+                                                <p>Планування та порядок розгляду питань</p>
+                                                <ul>
+                                                    <li><a target="_blank" href="http://iportal.rada.gov.ua/meeting/awt">Календарний план проведення сесії</a></li>
+                                                    <li><a href="http://static.rada.gov.ua/zakon/new/WR/pd_index.html">Порядок денний сесії</a></li>
+                                                    <li><a href="http://static.rada.gov.ua/zakon/new/WR/index.htm">Розклад пленарних засідань</a></li>
+                                                    <li><a href="http://iportal.rada.gov.ua/meeting/awt">Порядки денні пленарних засідань</a></li>
+                                                    <li><a href="http://static.rada.gov.ua/zakon/new/RK/index.htm">Тижневі графіки засідань комітетів</a></li>
+                                                </ul>
+                                                <p>Погоджувальні ради</p>
+                                                <ul>
+                                                    <li><a target="_blank" href="http://w1.c1.rada.gov.ua/pls/prada/ns_el_h">Електронний протокол</a></li>
+                                                    <li><a href="http://iportal.rada.gov.ua/meeting/stenpog">Стенограми погоджувальних рад</a></li>
+                                                </ul>
+                                                <p>Розгляд питань порядку денного</p>
+                                                <ul>
+                                                    <li><a href="http://iportal.rada.gov.ua/news/hpz9">Хід пленарних засідань</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/radan_gs09/ns_h1">Хронологія розгляду</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/radan_gs09/ns_pd1">Результати розгляду</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/radan_gs09/ns_el_h">Електронний протокол</a></li>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/radan_gs09/ns_el_h_stat">Статистика голосувань за вибраний період</a></li>
+                                                    <li><a href="http://iportal.rada.gov.ua/meeting/faxiv">Оперативна інформація</a></li>
+                                                    <li><a href="http://iportal.rada.gov.ua/meeting/stenogr">Стенограми пленарних засідань</a></li>
+                                                    <li><a href="http://iportal.rada.gov.ua/documents/Stenbul_pz">Стенографічні бюлетені пленарних засідань</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col">
+                                                <h3>Парламентські слухання</h3>
+                                                <ul>
+                                                    <li><a href="http://w1.c1.rada.gov.ua/pls/site2/p_par_sl">Проведення парламентських слухань</a></li>
+                                                    <li><a href="http://static.rada.gov.ua/zakon/new/par_sl/index.htm">Хроніка парламентських слухань</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+                                        </div><!--/submenu_row-->
+                                    </div><!--/submenu_table-->
+                                </div>
+                                <!-- /dropdown-menu -->
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Законодавство
+                                </a>
+
+                                <!-- dropdown-menu -->
+                                <div class="dropdown-menu">
+                                    <div class="submenu_table">
+                                        <div class="submenu_row">
+                                            <div class="submenu_col">
+                                                <h3>Нормативно-правова база України</h3>
+                                                <ul>
+                                                    <li><a href="http://zakon.rada.gov.ua/go">Законодавство України</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/a#Find">Пошук за реквізитами</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/nn">Надходження законодавства</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/c">Міжнародні документи</a></li>
+                                                    <li><a href="https://www.kmu.gov.ua/ua/diyalnist/yevropejska-integraciya/perekladi-aktiv-acquis-yes">Переклади актів acquis ЄС</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/d">Популярні документи</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/perv">Первинні законодавчі акти</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/koms">Розподіл за комітетами ВР</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/annot">Анотації англійською мовою</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/term">Термінологія законодавства</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/krym">Законодавство АР Крим</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+
+                                            <div class="submenu_col">
+                                                <h3>Правова база діяльності Парламенту</h3>
+                                                <ul>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/254%D0%BA/96-%D0%B2%D1%80">Конституція України</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/1861-17">Закон "Про Регламент Верховної Ради України"</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/2790-12">Закон "Про статус народного депутата України</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/116/95-%E2%F0">Закон "Про комітети Верховної Ради України</a></li>
+                                                    <li><a href="http://zakon2.rada.gov.ua/rada/show/n0001001-15">Угода про Коаліцію депутатських фракцій «Європейська Україна»</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/769/11-%D1%80%D0%B3">Положення про Апарат Верховної Ради України</a></li>
+                                                    <li><a href="http://zakon.rada.gov.ua/go/pravbase">Повний перелік документів</a></li>
+                                                </ul>
+                                            </div><!--/submenu_col-->
+                                        </div><!--/submenu_row-->
+                                    </div><!--/submenu_table-->
+                                </div>
+                                <!-- /dropdown-menu -->
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Громадськості</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Прес-центр</a>
+                            </li>
+
+                        </ul>
+                        <!-- cut TOP MENU-->
+
+
+                        <div class="form-inline my-2 my-lg-0">
+                            <ul class="map_menu">
+                                <li>
+                                    <a class="fliker-ico" href="#" target="_blank">
+                                        <i class="fab fa-flickr"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="youtube-ico" href="https://www.youtube.com/user/RadaTVchannel" target="_blank">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="twitter-ico" href="https://twitter.com/verkhovna_rada" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="facebook-ico" href="https://www.facebook.com/verkhovna.rada.ukraine/" target="_blank">
+                                        <i class="fab fa-facebook-square"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search_block">
+                        <form method="get" action="/search">
+                            <input type="submit" class="search_button" value="Пошук">
+                        </form>
+                    </div>
+                </nav>
+
+            </div>
+            
+<!--main-->
+<div class="main">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Головна</a></li>
+            <li class="breadcrumb-item active">Форма зворотнього зв’язку</li>
+        </ol>
+
+        <div class="page-heading">
+            Форма зворотнього зв’язку
+        </div>
+
+        <hr class="full-width">
+
+
+
+
+        <div class="feedback-form">
+            <div class="accreditation-form__heading">
+                Заповніть форму для зворотнього зв’зку
+            </div>
+
+            <div class="alert alert-warning">
+                Всі поля обов’язкові для заповнення
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="exampleAdresat">Адресат</label>
+                    <select class="selectpicker" id="exampleAdresat">
+                        <option>Верховна Рада України</option>
+                        <option>test 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Прізвище та ім’я</label>
+                    <input type="text" class="form-control" name="lname" id="lname" value="">
+                    <span class="warn"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Посада</label>
+                    <input type="text" class="form-control" name="job" id="job" value="">
+                    <span class="warn"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Електронна адреса</label>
+                    <input type="text" class="form-control" name="email" id="email" value="">
+                    <span class="warn"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Телефон</label>
+                    <input type="text" class="form-control" name="phone" id="phone" value="">
+                    <span class="warn"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label>Тема звернення</label>
+                    <input type="text" class="form-control" name="theme" id="theme" value="">
+                    <span class="warn"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label>Текст звернення</label>
+                    <textarea class="form-control" rows="6"></textarea>
+                    <span class="warn"></span>
+                </div>
+            </div>
+
+
+            <!-- -->
+            Captcha here
+            <!-- -->
+            <div class="form-group capchure">
+                <div class="g-recaptcha" data-sitekey="Ключ"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Надіслати" onclick="sendMsg(); return false;">
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div><!--/main-->
+
+
+            <!-- footer -->
+            <div id="footer">
+                <div class="site-map">
+                    <div class="container">
+                        <div class="site-map__heading">
+                            <a data-toggle="collapse" href="#collapseMap" role="button" aria-expanded="false" aria-controls="collapseMap">
+                                Мапа сайту
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr class="full-width">
+
+
+                    <div class="expand-map__text collapse" id="collapseMap">
+                        <div class="container">
+                            <a class="close-sitemap" data-toggle="collapse" href="#collapseMap" role="button" aria-expanded="false" aria-controls="collapseMap">
+                                <span class="mob-hide">Сховати</span>
+                            </a>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Верховна Рада</h3>
+                                    <h5>Склад та структура</h5>
+                                    <ul>
+                                        <li><a href="#">Голова Верховної Ради України</a></li>
+                                        <li><a href="#">Керівництво Верховної Ради України</a></li>
+                                        <li><a href="#">Народні депутати України</a></li>
+                                        <li><a href="#">Депутатські фракції і групи</a></li>
+                                        <li><a href="#">Схема розміщення депутатських фракцій і груп у сесійній залі</a></li>
+                                        <li><a href="#">Комітети Верховної Ради України</a></li>
+                                        <li><a href="#">Тимчасові комісії</a></li>
+                                        <li><a href="#">Апарат Верховної Ради України</a></li>
+                                    </ul>
+
+                                    <h5>
+                                        Народні депутати України минулих скликань
+                                    </h5>
+                                    <ul>
+                                        <li><a href="#">VII скликання (2012-2014)</a></li>
+                                        <li><a href="#">VI скликання (2007-2012)</a></li>
+                                        <li><a href="#">V скликання (2006-2007)</a></li>
+                                        <li><a href="#">IV скликання (2002-2006)</a></li>
+                                        <li><a href="#">III скликання (1998-2002)</a></li>
+                                        <li><a href="#">II скликання (1994-1998)</a></li>
+                                        <li><a href="#">I скликання (1990-1994)</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Діяльність</h3>
+                                    <h5>Міжнародна діяльність</h5>
+                                    <ul>
+                                        <li><a href="#">Міжнародні парламентські організації</a></li>
+                                        <li><a href="#">Національні парламенти (база даних РARLINE)</a></li>
+                                        <li><a href="#">Постійні делегації Верховної Ради України</a></li>
+                                        <li><a href="#">Депутатські групи з міжпарламентських зв'язків із зарубіжними країнами</a></li>
+                                        <li><a href="#">Міжпарламентські асамблеї</a></li>
+                                        <li><a href="#">Спільні міжпарламентські комісії</a></li>
+                                        <li><a href="#">Угода про асоціацію між Україною та ЄС</a></li>
+                                        <li><a href="#">Стан ратифікації Угоди про асоціацію між Україною та ЄС</a> </li>
+                                    </ul>
+
+                                    <h5>Очищення влади</h5>
+                                    <ul>
+                                        <li><a href="#">Загальна інформація</a></li>
+                                        <li><a href="#">Документи, якими керується Апарат Верховної Ради України при проведенні перевірки достовірності відомостей щодо застосування заборон передбачених положеннями Закону України «Про очищення влади»</a></li>
+                                        <li><a href="#">Перелік посад та осіб, щодо яких проводиться перевірка</a></li>
+                                    </ul>
+
+                                    <h5>Запобігання та протидія корупції</h5>
+                                    <ul>
+                                        <li><a href="#">Акти антикорупційного законодавства</a></li>
+                                        <li><a href="#">Нормативні та організаційно-розпорядчі документи Апарату Верховної Ради України з питань запобігання корупції</a></li>
+                                        <li><a href="#">Інформаційно-довідкові матеріали</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Законотворчість</h3>
+                                    <h5>Законопроекти</h5>
+                                    <ul>
+                                        <li><a href="#">Пошук за реквізитами</a></li>
+                                        <li><a href="#">Правила оформлення проектів законів та основні вимоги законодавчої техніки</a></li>
+                                        <li><a href="#">Зареєстровані за поточний тиждень</a></li>
+                                        <li><a href="#">Надано народним депутатам</a></li>
+                                        <li><a href="#">Знаходяться на розгляді в комітетах</a></li>
+                                        <li><a href="#">Прийняті на поточній сесії</a></li>
+                                    </ul>
+
+                                    <h5>Планування та порядок розгляду питань</h5>
+                                    <ul>
+                                        <li><a href="#">Календарний план проведення сесії</a></li>
+                                        <li><a href="#">Порядок денний сесії</a></li>
+                                        <li><a href="#">Розклад пленарних засідань</a></li>
+                                        <li><a href="#">Порядки денні пленарних засідань</a></li>
+                                        <li><a href="#">Тижневі графіки засідань комітетів</a></li>
+                                    </ul>
+
+                                    <h5>Погоджувальні ради</h5>
+                                    <ul>
+                                        <li><a href="#">Електронний протокол</a></li>
+                                        <li><a href="#">Стенограми погоджувальних рад</a></li>
+                                    </ul>
+
+                                    <h5>Розгляд питань порядку денного</h5>
+                                    <ul>
+                                        <li><a href="#">Хід пленарних засідань</a></li>
+                                        <li><a href="#">Хронологія розгляду</a></li>
+                                        <li><a href="#">Результати розгляду</a></li>
+                                        <li><a href="#">Електронний протокол</a></li>
+                                        <li><a href="#">Статистика голосувань за вибраний період</a></li>
+                                        <li><a href="#">Оперативна інформація</a></li>
+                                        <li><a href="#">Стенограми пленарних засідань</a></li>
+                                        <li><a href="#">Стенографічні бюлетені пленарних засідань</a></li>
+                                    </ul>
+
+                                    <h5>Парламентські слухання</h5>
+                                    <ul>
+                                        <li><a href="#">Проведення парламентських слухань</a></li>
+                                        <li><a href="#">Хроніка парламентських слухань</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Законодавство</h3>
+                                    <h5>Нормативно-правова база України</h5>
+                                    <ul>
+                                        <li><a href="#">Законодавство України</a></li>
+                                        <li><a href="#">Пошук за реквізитами</a></li>
+                                        <li><a href="#">Надходження законодавства</a></li>
+                                        <li><a href="#">Міжнародні документи</a></li>
+                                        <li><a href="#">Переклади актів acquis ЄС</a></li>
+                                        <li><a href="#">Популярні документи</a></li>
+                                        <li><a href="#">Первинні законодавчі акти</a></li>
+                                        <li><a href="#">Розподіл за комітетами ВР</a></li>
+                                        <li><a href="#">Анотації англійською мовою</a></li>
+                                        <li><a href="#">Термінологія законодавства</a></li>
+                                        <li><a href="#">Законодавство АР Крим</a></li>
+                                    </ul>
+
+                                    <h5>Правова база діяльності Парламенту</h5>
+                                    <ul>
+                                        <li><a href="#">Конституція України</a></li>
+                                        <li><a href="#">Закон "Про Регламент Верховної Ради України"</a></li>
+                                        <li><a href="#">Закон "Про статус народного депутата України</a></li>
+                                        <li><a href="#">Закон "Про комітети Верховної Ради України</a></li>
+                                        <li><a href="#">Угода про Коаліцію депутатських фракцій «Європейська Україна»</a></li>
+                                        <li><a href="#">Положення про Апарат Верховної Ради України</a></li>
+                                        <li><a href="#">Повний перелік документів</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Громадскості</h3>
+                                    <h5>Міжнародна діяльність</h5>
+                                    <ul>
+                                        <li><a href="#">Міжнародні парламентські організації</a></li>
+                                        <li><a href="#">Національні парламенти (база даних РARLINE)</a></li>
+                                        <li><a href="#">Постійні делегації Верховної Ради України</a></li>
+                                        <li><a href="#">Депутатські групи з міжпарламентських зв'язків із зарубіжними країнами</a></li>
+                                        <li><a href="#">Міжпарламентські асамблеї</a></li>
+                                        <li><a href="#">Спільні міжпарламентські комісії</a></li>
+                                        <li><a href="#">Угода про асоціацію між Україною та ЄС</a></li>
+                                        <li><a href="#">Стан ратифікації Угоди про асоціацію між Україною та ЄС</a></li>
+                                    </ul>
+
+                                    <h5>Очищення влади</h5>
+                                    <ul>
+                                        <li><a href="#">Загальна інформація</a></li>
+                                        <li><a href="#">Документи, якими керується Апарат Верховної Ради України при проведенні перевірки достовірності відомостей щодо застосування заборон передбачених положеннями Закону України «Про очищення влади»</a></li>
+                                        <li><a href="#">Перелік посад та осіб, щодо яких проводиться перевірка</a></li>
+                                    </ul>
+
+                                    <h5>Запобігання та протидія корупції</h5>
+                                    <ul>
+                                        <li><a href="#">Акти антикорупційного законодавства</a></li>
+                                        <li><a href="#">Нормативні та організаційно-розпорядчі документи Апарату Верховної Ради України з питань запобігання корупції</a></li>
+                                        <li><a href="#">Інформаційно-довідкові матеріали</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h3>Прес-центр</h3>
+                                    <h5>Склад та структура</h5>
+                                    <ul>
+                                        <li><a href="#">Голова Верховної Ради України</a></li>
+                                        <li><a href="#">Керівництво Верховної Ради України</a></li>
+                                        <li><a href="#">Народні депутати України</a></li>
+                                        <li><a href="#">Депутатські фракції і групи</a></li>
+                                        <li><a href="#">Схема розміщення депутатських фракцій і груп у сесійній залі</a></li>
+                                        <li><a href="#">Комітети Верховної Ради України</a></li>
+                                        <li><a href="#">Тимчасові комісії</a></li>
+                                        <li><a href="#">Апарат Верховної Ради України</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="full-width">
+                    </div>
+
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="lang_block">
+
+                                <select class="selectpicker">
+                                    <option>Українською</option>
+                                    <option>English</option>
+                                    <option>Русский</option>
+                                </select>
+                                <svg class="icn-world" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path class="icn-world__fill" fill-rule="evenodd" d="M16.55 18.571c.497-.958.883-2.078 1.13-3.314a11.339 11.339 0 0 0 1.902-.725 8.026 8.026 0 0 1-3.031 4.04m-12.133-4.04a11.35 11.35 0 0 0 1.902.725c.248 1.236.633 2.356 1.129 3.314a8.032 8.032 0 0 1-3.031-4.039m3.03-9.104c-.26.503-.49 1.048-.685 1.633-.335-.162-.56-.314-.67-.437a8.08 8.08 0 0 1 1.356-1.196m10.454 1.19c-.114.127-.338.278-.666.44a11.431 11.431 0 0 0-.686-1.63c.495.345.946.747 1.352 1.19m-.164 2.41a5.426 5.426 0 0 0 1.326-.773 7.946 7.946 0 0 1 .915 3.347c-.1.415-.78.978-2.012 1.455.02-.347.032-.7.032-1.057 0-1.039-.092-2.036-.261-2.973m-4.74 4.95V9.972a17.732 17.732 0 0 0 2.81-.354 15.08 15.08 0 0 1 .102 4.018c-.847.17-1.816.294-2.911.341m0 5.726v-3.726a22.416 22.416 0 0 0 2.51-.244c-.552 1.974-1.502 3.39-2.51 3.97m-2-3.726v3.726c-1.008-.58-1.958-1.996-2.51-3.97.812.126 1.657.21 2.51.244m0-11.68v3.668a15.244 15.244 0 0 1-2.326-.29C9.24 6.01 10.097 4.817 11 4.296m4.326 3.377c-.656.14-1.432.243-2.326.291V4.297c.904.52 1.76 1.712 2.326 3.377M8 12c0-.844.07-1.64.192-2.382.885.19 1.842.307 2.808.354v4.005a18.937 18.937 0 0 1-2.911-.34A15.08 15.08 0 0 1 7.999 12m-3.978-.398a7.932 7.932 0 0 1 .915-3.347 5.4 5.4 0 0 0 1.325.772A16.773 16.773 0 0 0 6 12c0 .357.012.71.032 1.057-1.232-.477-1.913-1.04-2.011-1.455M22 11.5c0-.06-.023-.112-.034-.168C21.62 6.13 17.288 2 12 2c-5.288 0-9.62 4.13-9.966 9.332-.01.056-.034.108-.034.168 0 .054.014.106.018.16-.004.114-.018.225-.018.34 0 5.513 4.487 10 10 10 5.514 0 10-4.487 10-10 0-.115-.013-.226-.017-.34.004-.054.017-.106.017-.16"/>
+                                </svg>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-6">
+                            <ul class="social-footer">
+                                <li><span>Верховна Рада у соціальних мережах:</span></li>
+                                <li>
+                                    <a class="facebook-ico" href="https://www.facebook.com/verkhovna.rada.ukraine/" target="_blank">
+                                        <i class="fab fa-facebook-square"></i>
+                                        Фейсбук
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="twitter-ico" href="https://twitter.com/verkhovna_rada" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                        Твіттер
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="youtube-ico" href="https://www.youtube.com/user/RadaTVchannel" target="_blank">
+                                        <i class="fab fa-youtube"></i>
+                                        Ютьюб
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fliker-ico" href="#" target="_blank">
+                                        <i class="fab fa-flickr"></i>
+                                        Флікер
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+
+                            <p>&copy; Верховна Рада України 1994—2019</p>
+                            <p>Програмно-технічна підтримка — <a href="http://w1.c1.rada.gov.ua/pls/site2/p_pidrozdil2?pidid=1266">Управління комп'ютеризованих систем</a></p>
+                            <p>Iнформаційна підтримка — <a href="http://w1.c1.rada.gov.ua/pls/site2/p_pidrozdil2?pidid=1292">Інформаційне управління,</a><a href="http://w1.c1.rada.gov.ua/pls/site2/p_pidrozdil2?pidid=1682"> Прес-служба Апарату Верховної Ради України</a></p>
+
+                            <div class="beta-block">
+                                Окремі функції порталу працюють у тестовому режимі. Якщо ви маєте зауваження або пропозиції, будь ласка, напишіть нам: <a href="mailto:support@rada.gov.ua">support@rada.gov.ua</a>
+                            </div>
+                            <div class="cc-block">
+                                Весь контент доступний за ліцензією <a href="https://creativecommons.org/licenses/by/4.0/deed.uk">Creative Commons Attribution 4.0 International license</a>, якщо не зазначено інше
+                            </div>
+                            <div class="kitsoft-block">
+                                <a href="https://www.kitsoft.kiev.ua/">KitSoft — розробник дизайну</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-6">
+
+
+                            <ul class="column-2-list-bold">
+                                <li><a href="https://itd.rada.gov.ua/SessionRequest">Заявка на відвідування пленарного засідання</a></li>
+                                <li><a href="http://vzvernen.rada.gov.ua/">Відділ з питань звернень громадян</a></li>
+                                <li><a href="https://itd.rada.gov.ua/services/appeal-of-citizens/">Електронна форма звернення</a></li>
+                                <li><a href="https://iportal.rada.gov.ua/fba">Форма акредитації на подію для ЗМІ</a></li>
+                                <li><a href="http://w1.c1.rada.gov.ua/pls/site2/p_aparat">Контакти</a></li>
+                            </ul>
+
+                            <hr>
+
+                            <ul class="column-2-list">
+                                <li><a href="http://chairman.rada.gov.ua/">Веб-сайт Голови Верховної Ради України</a></li>
+                                <li><a href="http://w1.c1.rada.gov.ua/pls/site2/p_komitis_site"> Веб-сайти комітетів Верховної Ради України</a></li>
+                                <li><a href="http://vrkadry.rada.gov.ua/">Веб-сайт Управління кадрів Апарату Верховної Ради України</a></li>
+                                <li><a href="https://iportal.rada.gov.ua/documents/parl_office_ms/">Парламентський офіс місцевого самоврядування</a></li>
+                                <li><a href="http://euinfocenter.rada.gov.ua/">Європейський інформаційно-дослідницький центр</a></li>
+                                <li><a href="http://lib.rada.gov.ua/">Бібліотечно-бібліографічні ресурси</a></li>
+                                <li><a href="https://iportal.rada.gov.ua//documents">Електронний архів документів</a></li>
+                                <li><a href="http://instzak.rada.gov.ua/">Інститут законодавства Верховної Ради України</a></li>
+                                <li><a href="http://tv.rada.gov.ua/">Державне підприємство «Парламентський телеканал «Рада»</a></li>
+                                <li><a href="http://radabook.com/">Парламентське видавництво</a></li>
+                                <li><a href="https://iportal.rada.gov.ua/documents/gosp_fin_dij_doc/other/125075.html">Управління адміністративними будинками</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end footer -->
+
+        </div>
+
+<div class="scrollup">  
+  <i class="fa fa-chevro
+        n-up"></i>
+</div>
+
+<script>
+
+    $(function () {
+
+        $('.sections_tabs li a.active').parent().addClass('selected');
+
+        // TinyNav.js 1
+        $('.sections_tabs').tinyNav();
+
+        $('.datepicker').datepicker({
+            language: "uk",
+            autoclose: true,
+            orientation: "auto right"
+        });
+
+    });
+
+    /*--- fixed header ---*/
+    $(window).resize(function() {
+        window.onscroll = function() {myFunction()};
+    });
+
+    window.onscroll = function() {myFunction()};
+
+    var bodyC = document.body;
+    var navbar = document.getElementById("navbar");
+    var sticky = navbar.offsetTop;
+    
+    var navbar2 = document.getElementById("newscenter");
+    var sticky2 = navbar2.offsetTop - 70;
+
+    function myFunction() {
+        if ($(window).width() > 992) {
+            bodyC.classList.remove("sticky2");
+            
+            if (window.pageYOffset > sticky) {
+                bodyC.classList.add("sticky");
+            } else {
+                bodyC.classList.remove("sticky");
+            }
+        } else {
+            bodyC.classList.remove("sticky");
+            
+            if (window.pageYOffset > sticky2) {
+                bodyC.classList.add("sticky2");
+            } else {
+                bodyC.classList.remove("sticky2");
+            }
+        }
+    }
+    /*--- /fixed header ---*/
+
+
+    $( document ).ready(function() {
+
+        $('.selectpicker').selectpicker({
+            "opens": "right"
+        });
+
+        if ($('.sections_tabs li a').hasClass('active')) {
+            $(this).parent().addClass('selected');
+        }
+
+        $(".test-circle").circliful({
+            animationStep: 5,
+            foregroundBorderWidth: 15,
+            backgroundBorderWidth: 15,
+            percent: 72,
+            fgcolor: "#556b2f",
+            textColor: '#333',
+            foregroundColor: '#61cd9c',
+            backgroundColor: '#e7e8eb',
+            fontColor: '#333'
+        });
+        
+        $('.select-custom select').niceSelect();
+
+        $('.event-calendar__slider').slick({
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            prevArrow: $('.prev-event'),
+            nextArrow: $('.next-event'),
+            adaptiveHeight: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                }
+            ]
+        });
+        
+        $('.scrollbar-inner').scrollbar();
+        
+        jQuery('.event-calendar .scrollbar-inner').scrollbar({
+            "onUpdate": function (container) {
+                container.animate({ scrollTop: $(container)[0].scrollHeight }, "slow");
+
+            }
+
+        });
+
+        $(".slice3:parent").slice(0, 3).show();
+        
+        $(".load-more").on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().children('.slice3:hidden').slice(0, 3).show();
+            if ($(this).parent().children('.slice3:hidden').length == 0) {
+                $(this).fadeOut('fast');
+            }
+        });
+        
+        
+    });
+
+// Begin---Script for ScrollUp-----------------
+    $(".scrollup").click(function() {
+        $('html, body, .wrapper, #page').animate({ scrollTop: 0 }, "slow");
+    });
+    
+    $(window).scroll(function() {
+      
+        if ($(this).scrollTop()>200) {        
+            $('.scrollup').fadeIn();
+        }      
+        else {
+            $('.scrollup').fadeOut();
+        }
+        
+    });
+    // End----Script for Scrollup-----------------
+
+
+</script>
+        
+    </body>
+</html>

@@ -26,6 +26,7 @@
     --table-cell-color:#fff;
     --event-main-color:#004BC1;
     --event-secondary-color:#F3F6FC;
+    --border-color: #eee;
 
     --prj_register: #03a9f4;
     --prj_working: #006eff;
@@ -125,7 +126,7 @@ svg {
     padding: 0 !important;
 }
 
-.z_colored, z_colored * {
+.z_colored, .z_colored * {
     background-color: transparent;
     color: var(--event-main-color);
     height: 100%;
@@ -233,7 +234,7 @@ svg {
 #z_select_custom {
     width: 100%;
     justify-content: space-between;
-    box-shadow: inset 0 -2px 0 0 #eee;
+    box-shadow: inset 0 -2px 0 0 var(--border-color);
 }
 #z_select_custom ul {
     width: max-content;
@@ -254,7 +255,7 @@ svg {
 
 .row, .col {
     height: 100%;
-    width: 100%;
+    /*width: 100%;*/
 }
 .row .col {
     display: flex;
@@ -273,9 +274,8 @@ svg {
     height: var(--container-height);
     min-height: var(--container-height-min);
     overflow: auto;
-    padding: 1px;
-    box-shadow: inset 0 0 0 1px #eee,
-                0 0 0 2px #eee;
+    padding: 0;
+    border-bottom: 1px solid var(--border-color);
 }
 #table_stat.fullscreen {
     height: 100%;
@@ -289,7 +289,7 @@ svg {
     position: relative;
     width: 100%;
     min-height: var(--top-panel-height);
-    box-shadow: inset 0 0 0 1px #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color);
     z-index: 21;
 }
 #z_panel_container_solo {
@@ -394,7 +394,7 @@ svg {
     display: flex;
     color: var(--event-main-color);
     width: var(--first-width);
-    box-shadow: inset 0 -1px 0 0 #eee;
+    box-shadow: inset 0 -1px 0 0 var(--border-color);
 }
 .z_num_tab * {
     color: var(--event-main-color);
@@ -413,35 +413,35 @@ svg {
 }
 
 .z_table_wrapper {
-    background-color: #eee;
+    background-color: var(--border-color);
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     overflow: auto;
-    box-shadow: inset 3px 0 0 0 #eee;
+    box-shadow: inset 3px 0 0 0 var(--border-color);
 }
 #z_table_wrapper_solo {
     height: calc(100%);/* - var(--solo-progress-bar-height));*/
 }
 .z_table_main_placeholder {
-    background-image:  linear-gradient(to right, #eee 1px, white 1px);
+    background-image:  linear-gradient(to right, var(--border-color) 1px, white 1px);
     background-size: var(--col-width);
     display: flex;
     align-items: center;
     position: relative;
     width: 100%;
-    box-shadow: inset 1px 0 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color);
 }
 .z_row.calendar .z_table_main_placeholder {
-    background-image:  linear-gradient(to right, #eee 1px, var(--table-secondary-color) 1px);
+    background-image:  linear-gradient(to right, var(--border-color) 1px, var(--table-secondary-color) 1px);
     background-size: var(--col-width);
 }
 .z_tm_p_nav {
     height: var(--nav-height);
     background-color: var(--table-secondary-color);
-    box-shadow: inset 1px 0 0 0 #eee,
-                0 1px 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color),
+                0 1px 0 0 var(--border-color);
 }
 .z_tm_p_inner {
     background-color: white;
@@ -471,7 +471,7 @@ svg {
 }
 
 .z_table {
-    background-color: #eee;
+    background-color: var(--border-color);
     flex-direction: column;
     gap: 1px;
     position: relative;
@@ -479,7 +479,7 @@ svg {
     width: 100%;
     /*min-height: var(--container-height);*/
     height: 100%;
-    box-shadow: inset 0 0 0 1px #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color);
 }
 .z_table .z_row.calendar {
     flex-direction: row;
@@ -491,7 +491,7 @@ svg {
 }
 
 .z_row {
-    background-color: #eee;
+    background-color: var(--border-color);
     gap: 1px;
     width: 100%;
     height: max-content;
@@ -516,8 +516,8 @@ svg {
     min-width: var(--first-width);
     min-height: var(--row-height);
     box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.5);
-    /*            1px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee;*/
+    /*            1px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color);*/
     clip-path: inset(-1px -6px 0 0);
     overflow: visible !important;
     z-index: 9;
@@ -538,11 +538,11 @@ svg {
     font-weight: bold;
     line-height: 1rem;
     text-align: center;
-    box-shadow: inset 3px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee,
-                inset 0 -2px 0 0 #eee,
-                inset 0 1px 0 0 #eee,
-                1px 0 0 0 #eee;
+    box-shadow: inset 3px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color),
+                inset 0 -2px 0 0 var(--border-color),
+                inset 0 1px 0 0 var(--border-color),
+                1px 0 0 0 var(--border-color);
     z-index: 12;
 }
 .z_title div {
@@ -608,9 +608,9 @@ svg {
     width: var(--col-width);
     height: var(--nav-height);
     font-weight: bold;
-    /*box-shadow: inset 1px 0 0 0 #eee,
-                inset 0 1px 0 0 #eee,
-                inset 0 -2px 0 0 #eee;*//*,
+    /*box-shadow: inset 1px 0 0 0 var(--border-color),
+                inset 0 1px 0 0 var(--border-color),
+                inset 0 -2px 0 0 var(--border-color);*//*,
                 0 1px 4px 0 rgba(0, 0, 0, 0.5);
     /*clip-path: inset(0 0 -5px 0);*/
     z-index: 10;
@@ -634,35 +634,35 @@ svg {
 .z_info {
     display: grid !important;
     grid-template-rows: 2fr 3fr;
-    grid-template-columns: 1fr 3fr 6fr 1fr;
+    grid-template-columns: 1fr 3fr 6fr 1.5fr;
     width: 100%;
     max-width: var(--first-width);
     height: var(--row-height);
     padding: 0.1rem 0.5rem;
-    box-shadow: inset 2px 0 0 0 #eee,
-                1px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee;
+    box-shadow: inset 2px 0 0 0 var(--border-color),
+                1px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color);
     transition: background .2s linear;
 }
 .z_info_documents {
     border-left: 3px solid var(--prj_intern);
-    box-shadow: 1px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee;
+    box-shadow: 1px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color);
 }
 .z_info_chronology {
     border-left: 3px solid var(--prj_accept);
-    box-shadow: 1px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee;
+    box-shadow: 1px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color);
 }
 .z_info_passing {
     border-left: 3px solid var(--prj_valid);
-    box-shadow: 1px 0 0 0 #eee,
-            inset -3px 0 0 0 #eee;
+    box-shadow: 1px 0 0 0 var(--border-color),
+            inset -3px 0 0 0 var(--border-color);
 }
 .z_info_committee {
     border-left: 3px solid var(--prj_first);
-    box-shadow: 1px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee;
+    box-shadow: 1px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color);
 }
 .z_subject {
     align-items: center;
@@ -735,7 +735,11 @@ svg {
     display: -webkit-box !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.z_name > div {
+    line-height: 1rem;
 }
 .z_open_full {
     color: var(--event-main-color);
@@ -748,6 +752,7 @@ svg {
     grid-column-end: 5;
     max-height: 30px;
     margin: 0.75rem 0.25rem 0.25rem 0.75rem;
+    padding: 0.375rem 0;
     border: none !important;
 }
 .z_open_full * {
@@ -763,7 +768,7 @@ svg {
     width: calc(100% - 1px);
     height: calc(100% - 1px);
     padding-top: calc(var(--top-panel-height-solo) + var(--solo-progress-bar-height));
-    box-shadow: inset 0 0 0 1px #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color);
     z-index: 20;
 }
 .z_solo .z_first {
@@ -782,6 +787,7 @@ svg {
     /*-webkit-line-clamp: 2;*/
     display: flex !important;
     gap: 3px;
+    grid-column-end: 5;
 }
 .z_solo .z_name i {
     margin: 3px 0 0 3px;
@@ -800,7 +806,7 @@ svg {
     height: calc(var(--top-panel-height-solo));
     min-height: var(--top-panel-height-solo);
     /*margin: 0rem 1rem 1rem 1rem;
-    box-shadow: inset 0 -2px 0 0 #eee;*/
+    box-shadow: inset 0 -2px 0 0 var(--border-color);*/
 }
 .z_solo_left {
     display: flex;
@@ -810,7 +816,7 @@ svg {
     text-align: center;
     width: 15%;
     padding: 0.25rem;
-    box-shadow: 3px 0 0 0 #eee;
+    box-shadow: 3px 0 0 0 var(--border-color);
 }
 .z_solo_left_title {
     display: flex;
@@ -877,7 +883,7 @@ svg {
 .z_solo_exec_bar .ava {
     max-width: max-content;
     width: 50px;
-    border: 3px solid #eee;
+    border: 3px solid var(--border-color);
     border-radius: 50%;
 }
 .z_solo_right {
@@ -892,7 +898,7 @@ svg {
     font-size: 0.75rem;
     font-weight: 600;
     border: none;
-    box-shadow: -3px 0 0 0 #eee;
+    box-shadow: -3px 0 0 0 var(--border-color);
 }
 .z_solo_right div {
     width: calc(100% - 0.5rem);
@@ -908,7 +914,7 @@ svg {
 .z_solo_stats_open {
     margin-top: 0.5rem;
     border: 0;
-    box-shadow: 0 0 0 2px #eee;
+    box-shadow: 0 0 0 2px var(--border-color);
 }
 .z_solo_close {
     background-color: transparent;
@@ -978,7 +984,7 @@ svg {
     max-height: var(--row-height);
     overflow-y: scroll;
     padding: 1px;
-    box-shadow: inset 0 0 0 1px #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color);
 }
 .z_panel_documents {
     display: flex;
@@ -986,7 +992,7 @@ svg {
     height: 100%;
     font-size: 0.8rem;
     padding: 0.5rem;
-    box-shadow: inset 0 -1px 0 0 #eee;
+    box-shadow: inset 0 -1px 0 0 var(--border-color);
 }
 .z_panel_documents:last-of-type {
     box-shadow: none;
@@ -1035,8 +1041,8 @@ svg {
     height: var(--row-height);
     padding-top: calc(var(--row-height) / 2 - 1px);
     border: 0 solid var(--event-main-color);
-    /*box-shadow: inset 1px 0 0 0 #eee,
-                inset 0 -1px 0 0 #eee;*/
+    /*box-shadow: inset 1px 0 0 0 var(--border-color),
+                inset 0 -1px 0 0 var(--border-color);*/
 }
 .z_day_weekend {
     background-color: #f9f9f9 !important;
@@ -1136,7 +1142,7 @@ svg {
     height: 21px;
     border: none;
     border-radius: 50%;
-    box-shadow: inset 0 0 0 2px black;
+    box-shadow: inset 0 0 2px black;
 }
 .z_event_info {
     background-color: white;
@@ -1174,19 +1180,19 @@ svg {
     justify-content: center;
     align-items: center;
     padding: 0.25rem;
-    /*box-shadow: inset 0 0 0 1px #eee,
-                0 -1px 0 0 #eee;*/
+    /*box-shadow: inset 0 0 0 1px var(--border-color),
+                0 -1px 0 0 var(--border-color);*/
     font-size: 0.9rem;
 }
 .z_event_info_el.z_event_info_title:first-of-type {
     padding: 0.5rem;
     font-weight: bold;
     letter-spacing: 1px;
-    /*box-shadow: inset 0 1px 0 0 #eee;*/
+    /*box-shadow: inset 0 1px 0 0 var(--border-color);*/
 
 }
 .z_event_info_el:last-of-type .z_event_info_text {
-    box-shadow: inset 1px 0 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color);
 }
 .z_event_info_el .proj {
     padding-left: 0.45rem;
@@ -1209,14 +1215,14 @@ svg {
     align-items: center;
     padding: 0.25rem;
     padding-left: 0.5rem;
-    box-shadow: /*inset 0 -1px 0 0 #eee,
-                0 -1px 0 0 #eee,*/
-                inset 1px 0 0 0 #eee;
+    box-shadow: /*inset 0 -1px 0 0 var(--border-color),
+                0 -1px 0 0 var(--border-color),*/
+                inset 1px 0 0 0 var(--border-color);
 }
 .z_event_info_text.z_event_info_doc {
     position: relative;
     padding-left: 1.25rem;
-    box-shadow: inset 1px 0 0 0 #eee !important;
+    box-shadow: inset 1px 0 0 0 var(--border-color) !important;
 }
 .z_event_info_doc::before {
     background-color: var(--event-main-color);
@@ -1236,13 +1242,13 @@ svg {
     min-width: var(--col-width) !important;
     width: max-content !important;
     height: var(--solo-row-height);
-    box-shadow: inset 1px 0 0 0 #eee,
-    inset 0 -1px 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color),
+    inset 0 -1px 0 0 var(--border-color);
 }
 .z_solo_container:last-of-type {
-    box-shadow: inset 1px 0 0 0 #eee,
-    inset -1px 0 0 0 #eee,
-    inset 0 -1px 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color),
+    inset -1px 0 0 0 var(--border-color),
+    inset 0 -1px 0 0 var(--border-color);
 }
 .z_solo_day {
     background-color: white;
@@ -1328,8 +1334,8 @@ svg {
 }
 .z_row:hover .z_solo_passing_line {
     background-color: rgba(0, 0, 255, 0.03);
-    box-shadow: inset 0 1px 0 0 #eee,
-                inset 0 -1px 0 0 #eee;
+    box-shadow: inset 0 1px 0 0 var(--border-color),
+                inset 0 -1px 0 0 var(--border-color);
 }
 .no_committee .z_row_committee,
 .no_passings .z_row_passings,
@@ -1501,7 +1507,7 @@ svg {
 }
 
 .z_table_solo_placeholder {
-    background-image:  repeating-linear-gradient(white, white var(--row-height), #eee var(--row-height), #eee calc(var(--row-height) + 1px));
+    background-image:  repeating-linear-gradient(white, white var(--row-height), var(--border-color) var(--row-height), var(--border-color) calc(var(--row-height) + 1px));
     display: flex;
     align-items: center;
     position: relative;
@@ -1512,20 +1518,20 @@ svg {
     background-color: transparent;
     height: 100%;
     min-height: 100%;
-    box-shadow: inset 0 0 0 1px #eee,
-    inset 2px 0 0 0 #eee,
-    inset -3px 0 0 0 #eee,
-    1px 1px 0 0 #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color),
+    inset 2px 0 0 0 var(--border-color),
+    inset -3px 0 0 0 var(--border-color),
+    1px 1px 0 0 var(--border-color);
 }
 /*.z_row.calendar .z_table_main_placeholder {
-    background-image:  linear-gradient(to right, #eee 1px, var(--table-secondary-color) 1px);
+    background-image:  linear-gradient(to right, var(--border-color) 1px, var(--table-secondary-color) 1px);
     background-size: var(--col-width);
 }*/
 .z_tm_p_nav {
     height: var(--nav-height);
     background-color: var(--table-secondary-color);
-    box-shadow: inset 1px 0 0 0 #eee,
-    0 1px 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color),
+    0 1px 0 0 var(--border-color);
 }
 .z_ts_p_inner {
     background-color: white;
@@ -1560,10 +1566,10 @@ svg {
 #z_solo_progress_row .z_first {
     height: calc(var(--nav-height) / 2);
     min-height: calc(var(--nav-height) / 2);
-    box-shadow: inset 0 0 0 1px #eee,
-                inset 2px 0 0 0 #eee,
-                inset -3px 0 0 0 #eee,
-                1px 1px 0 0 #eee;
+    box-shadow: inset 0 0 0 1px var(--border-color),
+                inset 2px 0 0 0 var(--border-color),
+                inset -3px 0 0 0 var(--border-color),
+                1px 1px 0 0 var(--border-color);
     z-index: 20;
 }
 
@@ -1580,11 +1586,12 @@ svg {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: calc(100% - 1px);/*calc(100% - 10px - var(--first-width));*/
+    width: calc(100% - 4px);/*calc(100% - 10px - var(--first-width));*/
     height: 100%;
-    border-left: 3px solid #eee;
-    box-shadow: /*-3px 0 0 0 #eee,*/
-                1px 0 0 0 #eee;
+    margin-left: 3px;
+    /*border-left: 3px solid var(--border-color);*/
+    box-shadow: -3px 0 0 0 var(--border-color),
+                1px 0 0 0 var(--border-color);
 }
 #z_solo_progress_bar {
     background-color: rgba(255, 255, 255, 0.5);
@@ -1597,7 +1604,7 @@ svg {
     z-index: 5;
 }
 #z_solo_progress_location {
-    background-color: #eee;
+    background-color: var(--border-color);
     display: none;
     position: absolute;
     left: 0;
@@ -1624,7 +1631,7 @@ svg {
     border-left: 6px solid transparent;
 }*/
 .z_solo_pb_el {
-    background-color: #eee;
+    background-color: var(--border-color);
     position: absolute;
     height: 100%;
     box-shadow: inset -1px 0 0 0 white;
@@ -1654,21 +1661,21 @@ svg {
     flex-direction: column;
     background-color: white;
     width: 100%;
-    height: var(--stepper-solo-height);
     z-index: 21;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-    border-top: 2px solid #eee;
-    border-bottom: 2px solid #eee;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
 }
 #z_stg_steps_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     width: 100%;
     height: max-content;
     padding: 8px 8px;
-    box-shadow: inset 0 -2px 0 0 #eee;
+    box-shadow: inset 0 -2px 0 0 var(--border-color);
 }
 #z_stg_mermaid_container {
     display: flex;
@@ -1682,8 +1689,12 @@ svg {
     width: 100%;
     height: 100%;
     max-height: 100%;
-    overflow: auto;
-    box-shadow: 0 0 0 2px #eee;
+    /*overflow: auto;*/
+    box-shadow: 0 0 0 2px var(--border-color);
+}
+#z_stg_mermaid_sub_container h2 {
+   text-align: center;
+    padding: 8px;
 }
 #z_stg_mermaid_sub_container svg {
     cursor: pointer;
@@ -1694,14 +1705,14 @@ svg {
     width: 100%;
 }
 #z_stg_sub_container > div:first-child {
-    box-shadow: inset -1px 0 0 0 #eee,
-    1px 0 0 0 #eee,
-    inset 0 -2px 0 0 #eee;
+    box-shadow: inset -1px 0 0 0 var(--border-color),
+    1px 0 0 0 var(--border-color),
+    inset 0 -2px 0 0 var(--border-color);
 }
 #z_stg_sub_container > div:last-child {
-    box-shadow: inset 1px 0 0 0 #eee,
-    -1px 0 0 0 #eee,
-    inset 0 -2px 0 0 #eee;
+    box-shadow: inset 1px 0 0 0 var(--border-color),
+    -1px 0 0 0 var(--border-color),
+    inset 0 -2px 0 0 var(--border-color);
 }
 #z_stg_sub_container > div {
     width: 50%;
@@ -1710,7 +1721,7 @@ svg {
     min-height: 200px;
     max-height: 380px;
     overflow: auto;
-    box-shadow: inset 0 -2px 0 0 #eee;
+    box-shadow: inset 0 -2px 0 0 var(--border-color);
 }
 .z_stgs_title {
     text-align: center;
@@ -1731,30 +1742,62 @@ svg {
 .z_active {
     opacity: 1 !important;
 }
+.z_displayed.step-circle {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+/*.z_displayed.step-circle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    border-top: 12px solid var(--prj_register);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-bottom: 12px solid var(--prj_register);
+    border-radius: 50%;
+}*/
 .step-circle {
     color: white;
     opacity: 0.1;
     min-width: 2rem;
-    border: 1px solid #999;
+    border: none;
     box-shadow: none;
     cursor: pointer;
+    z-index: 999;
+}
+.step-circle:not(.z_active) {
+    box-shadow: inset 0 0 0 1px #999;
 }
 .step-circle.z_small {
-    width: 24px;
+    /*width: 24px;
     min-width: 24px;
     height: 24px;
     min-height: 24px;
-    font-size: 12px;
+    font-size: 12px;*/
 }
 .step-circle:hover {
     box-shadow: none;
 }
+.step-circle.z_displayed:hover {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
 .step-circle::before {
     display: none;
 }
+.z_displayed_arrow {
+    display: none;
+    color: white;
+    position: absolute;
+    left: 15px;
+    top: calc(var(--solo-stepper-height) - 19px);
+    text-shadow: -1px -1px 0 var(--border-color), 1px -1px 0 var(--border-color);
+}
+.z_displayed_arrow i {
+    font-size: 32px;
+}
 
 /* --------register--------------*/
-.step-register.step-circle {
+.step-register {
     color: #fff;
     background-color: var(--prj_register);
 
@@ -1765,7 +1808,7 @@ svg {
 }
 
 /* --------working--------------*/
-.step-working.step-circle {
+.step-working {
     color: #fff;
     background-color: var(--prj_working);
 
@@ -1776,7 +1819,7 @@ svg {
 }
 
 /* --------order--------------*/
-.step-order.step-circle {
+.step-order {
     color: #fff;
     background-color: var(--prj_order);
 
@@ -1787,7 +1830,7 @@ svg {
 }
 
 /*----------reading-----*/
-.step-first.step-circle {
+.step-first {
     color: #fff;
     background-color: var(--prj_first);
 
@@ -1797,7 +1840,7 @@ svg {
     color: var(--prj_first);
 }
 
-.step-second.step-circle {
+.step-second {
     color: #fff;
     background-color: var(--prj_second);
 
@@ -1807,7 +1850,7 @@ svg {
     color: var(--prj_second);
 }
 
-.step-third.step-circle {
+.step-third {
     color: #fff;
     background-color: var(--prj_third);
 
@@ -1819,7 +1862,7 @@ svg {
 
 /*----------accept-----*/
 
-.step-accept.step-circle {
+.step-accept {
     color: #fff;
     background-color: var(--prj_accept);
 
@@ -1830,7 +1873,7 @@ svg {
 
 /*----------accept-----*/
 
-.step-notaccept.step-circle {
+.step-notaccept {
     color: #fff;
     background-color: var(--prj_notaccept);
 
@@ -1841,7 +1884,7 @@ svg {
 
 /*----------sign-----*/
 
-.step-signed.step-circle {
+.step-signed {
     color: #fff;
     background-color: var(--prj_signed);
 
@@ -1851,7 +1894,7 @@ svg {
 }
 
 /*----------valid----*/
-.step-valid.step-circle {
+.step-valid {
     color: #fff;
     background-color: var(--prj_valid);
 
@@ -1862,7 +1905,7 @@ svg {
 }
 
 /*----------valid----*/
-.step-intern.step-circle {
+.step-intern {
     color: #fff;
     background-color: var(--prj_intern);
 
@@ -1873,7 +1916,7 @@ svg {
 }
 
 /*----------rejected-----------*/
-.step-reject.step-circle {
+.step-reject {
     color: #fff;
     background-color: var(--prj_reject);
 
@@ -1884,7 +1927,7 @@ svg {
 }
 
 /*----------rejected-----------*/
-.step-refine.step-circle {
+.step-refine {
     color: #fff;
     background-color: var(--prj_refine);
 
@@ -1894,7 +1937,7 @@ svg {
     color: var(--prj_refine);
 }
 /*----------urgent-----------*/
-.step-urgent.step-circle {
+.step-urgent {
     color: #fff;
     background-color: var(--prj_urgent);
 
@@ -1905,7 +1948,7 @@ svg {
 }
 
 /*----------public-----------*/
-.step-public.step-circle {
+.step-public {
     color: #fff;
     background-color: var(--prj_public);
 
@@ -1915,7 +1958,7 @@ svg {
     color: var(--prj_public);
 }
 /*----------other-----------*/
-.step-other.step-circle {
+.step-other {
     color: #fff;
     background-color: var(--prj_other);
 
@@ -1932,6 +1975,9 @@ svg {
     border-color: #333 !important;
 }
 
+.again.step-circle {
+    border-style: solid;
+}
 .addit.step-circle {
     border-style: dotted;
 }

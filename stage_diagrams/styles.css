@@ -1,0 +1,360 @@
+article {
+    width: 1600px;
+    max-width: 100%;
+}
+
+#z_stg_container {
+    border: 4px solid #eee;
+}
+
+.z_stg_steps {
+    background-color: #eee;
+    display: flex;
+    /*display: grid;
+    grid-template:
+    [row1-start] "title states" min-content [row1-end]
+    [row2-start] "title states" min-content [row2-end]
+    / 200px calc(100% - 202px);
+    grid-gap: 2px;*/
+    border-bottom: 2px solid #eee;
+}
+.z_stg_steps_title {
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 8px;
+}
+.z_stg_steps_container {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    padding: 0 8px;
+}
+.z_stg_steps_container.linked {
+    justify-content: space-between;
+}
+
+.z_solo_tg_steps_link {
+    background-color: #adb5bd;
+    height: 4px;
+    width: 100%;
+}
+.z_solo_tg_steps_link.z_small {
+    width: 66.7%;
+}
+.step-circle.active {
+    box-shadow: 0 0 6px black !important;
+}
+.step-circle {
+    color: white;
+    min-width: 2rem;
+    border: none; /*1px solid #999;*/
+    box-shadow: none;
+    margin: 8px 0;
+}
+.step-circle.clickable {
+    cursor: pointer;
+}
+.step-circle.z_small {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    min-height: 24px;
+    font-size: 12px;
+}
+.step-circle:hover {
+    box-shadow: none;
+}
+.step-circle::before {
+    display: none;
+}
+
+/* --------register--------------*/
+.step-register {
+    color: #fff;
+    background-color: var(--prj_register);
+
+}
+
+.step-register.step-circle:before {
+    color: var(--prj_register);
+}
+
+/* --------working--------------*/
+.step-working {
+    color: #fff;
+    background-color: var(--prj_working);
+
+}
+
+.step-working.step-circle:before {
+    color: var(--prj_working);
+}
+
+/* --------order--------------*/
+.step-order {
+    color: #fff;
+    background-color: var(--prj_order);
+
+}
+
+.step-order.step-circle:before {
+    color: var(--prj_order);
+}
+
+/*----------reading-----*/
+.step-first {
+    color: #fff;
+    background-color: var(--prj_first);
+
+}
+
+.step-first.step-circle:before {
+    color: var(--prj_first);
+}
+
+.step-second {
+    color: #fff;
+    background-color: var(--prj_second);
+
+}
+
+.step-second.step-circle:before {
+    color: var(--prj_second);
+}
+
+.step-third {
+    color: #fff;
+    background-color: var(--prj_third);
+
+}
+
+.step-third.step-circle:before {
+    color: var(--prj_third);
+}
+
+/*----------accept-----*/
+
+.step-accept {
+    color: #fff;
+    background-color: var(--prj_accept);
+
+}
+.step-accept.step-circle:before {
+    color: var(--prj_accept);
+}
+
+/*----------accept-----*/
+
+.step-notaccept {
+    color: #fff;
+    background-color: var(--prj_notaccept);
+
+}
+.step-notaccept.step-circle:before {
+    color: var(--prj_notaccept);
+}
+
+/*----------sign-----*/
+
+.step-signed {
+    color: #fff;
+    background-color: var(--prj_signed);
+
+}
+.step-signed.step-circle:before {
+    color: var(--prj_signed);
+}
+
+/*----------valid----*/
+.step-valid {
+    color: #fff;
+    background-color: var(--prj_valid);
+
+}
+
+.step-valid.step-circle:before {
+    color: var(--prj_valid);
+}
+
+/*----------valid----*/
+.step-intern {
+    color: #fff;
+    background-color: var(--prj_intern);
+
+}
+
+.step-intern.step-circle:before {
+    color: var(--prj_intern);
+}
+
+/*----------rejected-----------*/
+.step-reject {
+    color: #fff;
+    background-color: var(--prj_reject);
+
+}
+
+.step-reject.step-circle:before {
+    color: var(--prj_reject);
+}
+
+/*----------rejected-----------*/
+.step-refine {
+    color: #fff;
+    background-color: var(--prj_refine);
+
+}
+
+.step-refine.step-circle:before {
+    color: var(--prj_refine);
+}
+/*----------urgent-----------*/
+.step-urgent {
+    color: #fff;
+    background-color: var(--prj_urgent);
+
+}
+
+.step-urgent.step-circle:before {
+    color: var(--prj_urgent);
+}
+
+/*----------public-----------*/
+.step-public {
+    color: #fff;
+    background-color: var(--prj_public);
+
+}
+
+.step-public.step-circle:before {
+    color: var(--prj_public);
+}
+/*----------other-----------*/
+.step-other {
+    color: #fff;
+    background-color: var(--prj_other);
+
+}
+
+.step-other.step-circle:before {
+    color: var(--prj_other);
+}
+
+.again.step-circle,
+.addit.step-circle,
+.refine.step-circle {
+    border-width: 2px;
+    border-color: #333 !important;
+}
+
+.addit.step-circle {
+    border-style: dotted;
+}
+.refine.step-circle {
+    border-style: dashed;
+}
+
+/*--------------------------*/
+
+
+.diagram-header {
+    display: flex;
+    flex-direction: column;
+}
+.diagram-header .title {
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+}
+.diagram-header li {
+    margin: 1.5rem 0;
+}
+
+.diagram-header div {
+    display: flex;
+    flex-direction: column;
+}
+
+.diagram-contents {
+    width: 400px;
+}
+
+.diagram-abbreviations {
+    display: flex;
+    flex-direction: row!important;
+    flex-wrap: wrap;
+    padding: 1rem;
+    width: 100%;
+}
+.diagram-abbreviations span {
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    margin-right: 6rem;
+}
+.diagram-abbreviations h4 {
+    padding: 0;
+    margin: 0;
+}
+
+.mermaid {
+    min-width: 1000px;
+    overflow: hidden;
+}
+
+.mermaid svg {
+    max-width: 100% !important;
+}
+
+.mermaid g {
+    display: block;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.clusters rect {
+    /*width: 100%;*/
+}
+
+.node :is(rect, .nodeLabel) {
+    display: block;
+    min-width: 320px;
+    min-height: max-content;
+    line-height: 32px;
+    white-space: pre-wrap;
+    padding: 0;
+}
+
+.edgeLabel {
+    display: block;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+.edgeLabel :not(:has(strong)) {
+    min-width: 320px;
+    min-height: max-content;
+    line-height: 32px;
+    white-space: pre-wrap;
+}
+
+#z_stg_diagrams_container {
+    overflow-x: auto;
+    box-shadow: 0 2px 0 #eee;
+}
+#z_stg_diagrams_container h2 {
+    width: 100%;
+    text-align: center;
+}
+
+.diagram-hidden {
+    opacity: 0;
+    height: 0!important;
+    overflow: hidden;
+}

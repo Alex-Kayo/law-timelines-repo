@@ -1,0 +1,14 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+class search_Core {
+
+   
+    public static function strip($text){        
+        $text = preg_replace("/[^a-zA-ZА-Яа-я\sёЁїЇєіІЄ\'\-\;\,]/u","", $text);
+        $text = str_replace("'", "''", $text);
+        return $text;        
+        
+    }
+
+
+}

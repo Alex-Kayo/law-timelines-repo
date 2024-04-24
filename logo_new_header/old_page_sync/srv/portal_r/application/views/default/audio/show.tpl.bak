@@ -1,0 +1,73 @@
+<script src="/flowplayer/flowplayer-3.1.4.min.js"></script> 
+<div id="content-all">
+      <div class="panel">
+
+        <div class="panel1">
+          <div class="panel2">
+            <div class="panel-head clr">
+              <h3>Аудіо матеріали</h3>
+              <a class="rss" href="/rss/audio">RSS</a> </div>
+            <div class="white3-panel">
+              <div class="white3-panel1">
+              
+               <h1>{$item->i_name}</h1>
+                  {if $item->i_full}
+                  {$item->i_full}
+                  {else}
+                  {$item->i_anons}
+                  {/if}
+      
+                  
+                  
+                  <audio controls>
+	<source src="/uploads/audio/file.ogg" />
+	<source src="/uploads/audio/file.mp3" />
+</audio>
+                  
+                  
+                  
+                  {*
+      			{foreach item=data from=$attachments}
+      			
+                            
+      					<div id="player{$data->ia_id}" style="display:block;width:540px;height:30px;"></div>
+          				<p>{$data->ia_description}</p>
+          				<br /><br /><br />
+      	                 
+      					{literal}
+      					<script type="text/javascript">
+      						$(document).ready(function(){ 
+      							
+      							$f("player{/literal}{$data->ia_id}{literal}", "/flowplayer/flowplayer-3.2.2.swf", {
+      							
+      								plugins: {
+      									controls: {
+      										fullscreen: false,
+      										height: 30,
+      										autoHide: false
+      									}
+      								},							
+      								clip: {
+      									autoPlay: false,
+      									url: '/uploads/audio/{/literal}{$data->ia_id}{literal}.mp3'
+      
+      								}
+      							
+      							});							
+      						});
+      					
+      					</script>
+      					{/literal}			
+      			
+      			{/foreach}
+                        *}
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

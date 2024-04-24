@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>6A77E94A-DF4B-4EA4-AD84-118DBAB8F33F</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="UI/Blocks/Digest-Form" transform="translate(-340.000000, -270.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="24px/outlined/icn-information" transform="translate(340.000000, 270.000000)">
+                <path d="M12,22 C17.514,22 22,17.514 22,12 C22,6.486 17.514,2 12,2 C6.486,2 2,6.486 2,12 C2,17.514 6.486,22 12,22 Z M12,0 C18.617,0 24,5.383 24,12 C24,18.617 18.617,24 12,24 C5.383,24 0,18.617 0,12 C0,5.383 5.383,0 12,0 Z M12,8 C11.447,8 11,7.553 11,7 C11,6.447 11.447,6 12,6 C12.553,6 13,6.447 13,7 C13,7.553 12.553,8 12,8 Z M13,15 C13.553,15 14,15.447 14,16 C14,16.553 13.553,17 13,17 L11,17 C10.447,17 10,16.553 10,16 C10,15.447 10.447,15 11,15 L11,11 C10.447,11 10,10.553 10,10 C10,9.447 10.447,9 11,9 L12,9 C12.414,9 12.77,9.252 12.922,9.61 C12.972,9.73 13,9.862 13,10 L13,15 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

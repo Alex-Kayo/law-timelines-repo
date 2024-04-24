@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>074671DD-F8BD-4844-8D5F-A97B3BC8D942</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M12.207,15.207 C11.951,15.207 11.695,15.109 11.5,14.914 L7,10.414 L8.414,9 L12.207,12.793 L16,9 L17.414,10.414 L12.914,14.914 C12.719,15.109 12.463,15.207 12.207,15.207" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI/Blocks/Header" transform="translate(-1155.000000, -57.000000)">
+            <g id="Dropdown---Language" transform="translate(1001.000000, 40.000000)">
+                <g id="24px/outlined/icn-dropdown" transform="translate(147.000000, 8.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Fill-1" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

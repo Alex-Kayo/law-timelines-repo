@@ -6,91 +6,103 @@ import {escText, parseJsonDate} from "./parse_text.js";
 import {calcDateOffset} from "./misc.js";
 import {getReviewClass, getSoloReadingIcon, getStatusClass} from "./get_class_regex.js";
 import {getTimeDelta, getToday} from "./date_operations.js";
+import {fetchLawSolo} from "./fetch.js";
 
-export function createSoloTimeline(idProp) {
-    let id = idProp.split(/(?<=[a-z])(?=\d+?)/)[1];
-    let newID = `solo_timeline${id}`;
-    let result = '';
+export function createSoloTimeline(props) {//idProp) {
+    let sid = getCookie('api');
 
-    let index = ($(`#open_full${id}`).parent().parent().parent().index() - 1) + ((data.currentPage - 1) * data.const.PAGE_SIZE);
+    const proceed = async () => {
+        let params, id, containerId;
+        if (props.id !== undefined) {
+            id = props.id.split(/(?<=[a-z])(?=\d+?)/)[1];
+            let index = ($(`#open_full${id}`).parent().parent().parent().index() - 1) + ((data.currentPage - 1) * data.const.PAGE_SIZE);
+            params = {"sid": sid, id: '-' + data.table.lawSet[index].id};
+            containerId = `solo_timeline${id.match(/\d+/)}`;
+        } else if (props.number !== undefined) {
+            params = {"sid": sid, number: props.number};
+            props.number = props.number.match(/\d+/);
+            id = props.number;
+            containerId = `solo_timeline${props.number}`;
+        } else return false;
 
-    let params = {"sid": apiToken, id: '-' + data.table.lawSet[index].id};
+        let soloLaw = await fetchLawSolo(params);
 
-    let fetchSoloLaw = fetch(`https://meeting.rada.gov.ua/api/bills`, {
-        method: 'POST',
-        body: JSON.stringify(params)
-    }).then(function (res) {
-        return res;
-    }).catch(e => console.log(e));
-
-    let soloLaw = '';
-    fetchSoloLaw.then(function (response) {
-        return response.text();
-    }).then(function (text) {
-        text = text.replace(/(\r\n|\n|\r)/gm, "").replace(/\t/g, ' ');
-        try {
-            soloLaw = JSON.parse(text);
-        } catch (e) {
-            console.log(e);
-        }
-    }).catch(e => console.log(e)).then(() => {
-        if (soloLaw === '') {
+        if (soloLaw === '' || typeof soloLaw !== "object" || soloLaw.id === undefined) {
+            $('.z_loading_screen').html('<h2>Сталася помилка!</h2>');
             throw 'Loading the law has failed.';
         }
         if (newLawSet([soloLaw]) === false) {
-            $('#' + idProp).html('<i class="fa fa-line-chart"></i>');
+            $('#' + props.id).html('<i class="fa fa-line-chart"></i>');
             return;
         }
 
-        result += `
-        <div id="${newID}" class="z_solo"></div>
-        `;
+        let result = `
+    <div id="${containerId}" class="z_solo"></div>
+    `;
 
-        $('#table_stat > div:first-child').after(result);
+        $('#table_stat').append(result);
         $('#z_panel_container_main, #z_table_wrapper_main').attr('style', 'display:none!important');
 
         let subjType = data.lawSubj.findIndex((el) => el === data.table.lawSet[0].subject);
 
 
-
         result = `
-        <div id="z_panel_container_solo" class="z_panel_container">
-            <div class="z_solo_title_container">
-                ${setSoloLeft()}
-                ${setSoloCenter()}
-                ${setSoloRight()}
-                <div class="zal-fullscreen">
-                    <button id="eventResize" class="btn btn-sm btn-outline-secondary"><i class="fa fa-arrows-alt"></i> <span>Розгорнути</span></button>
-                    <button id="eventSmall" class="btn btn-sm btn-outline-secondary"><i class="fa fa-compress"></i> <span>Згорнути</span></button>
-                </div>
-                <button id="z_solo_close" class="z_solo_close"><i class="fa fa-times" aria-hidden="true"></i></button>
-                <div class="z_solo_filter">
-                    <div id="filter_frs" class="btn-group dropdown">
-                        <a class="btn btn-link btn-sm dropdown-toggle with-caret" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-filter"></i><span class="d-none d-md-inline"> Фільтр</span></a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-sm" data-url="" style="will-change: transform;">
-                            <a class="dropdown-header bold">Групи подій:</a>
-                            <a class="dropdown-item filter z_solo_filter_item" data-type="documents" href="javascript:void(0)"><i class="fa fa-check-circle i_doc"></i> Документи</a>
-                            <a class="dropdown-item filter z_solo_filter_item" data-type="chronology" href="javascript:void(0)"><i class="fa fa-check-circle i_chr"></i> Хронологія</a>
-                            <a class="dropdown-item filter z_solo_filter_item" data-type="passings" href="javascript:void(0)"><i class="fa fa-check-circle i_pas"></i> Проходження</a>
-                            <a class="dropdown-item filter z_solo_filter_item" data-type="committee" href="javascript:void(0)"><i class="fa fa-check-circle i_com"></i> Комітети</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item nofilter z_solo_filter_clear" href="javascript:void(0)">Очистити</a>
-                        </div>
+    <div id="z_panel_container_solo" class="z_panel_container">
+        <div class="z_solo_title_container">
+            ${setSoloLeft()}
+            ${setSoloCenter()}
+            ${setSoloRight()}
+            <div class="zal-fullscreen">
+                <button id="eventResize" class="btn btn-sm btn-outline-secondary"><i class="fa fa-arrows-alt"></i> <span>Розгорнути</span></button>
+                <button id="eventSmall" class="btn btn-sm btn-outline-secondary"><i class="fa fa-compress"></i> <span>Згорнути</span></button>
+            </div>
+            ${(filterOptions.active === false || filterOptions.active === true && (filterOptions.number === undefined || filterOptions.number === null)) ? '<button id="z_solo_close" class="z_solo_close"><i class="fa fa-times" aria-hidden="true"></i></button>' : ''}
+            <div class="z_solo_filter">
+                <div id="filter_frs" class="btn-group dropdown">
+                    <a class="btn btn-link btn-sm dropdown-toggle with-caret" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-filter"></i><span class="d-none d-md-inline"> Фільтр</span></a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-sm" data-url="" style="will-change: transform;">
+                        <div class="dropdown-header bold">Групи подій:</div>
+                        <a class="dropdown-item filter z_solo_filter_item" data-type="documents" href="javascript:void(0)"><i class="fa fa-check-circle i_doc"></i> Документи</a>
+                        <a class="dropdown-item filter z_solo_filter_item" data-type="chronology" href="javascript:void(0)"><i class="fa fa-check-circle i_chr"></i> Хронологія</a>
+                        <a class="dropdown-item filter z_solo_filter_item" data-type="passings" href="javascript:void(0)"><i class="fa fa-check-circle i_pas"></i> Проходження</a>
+                        <a class="dropdown-item filter z_solo_filter_item" data-type="committee" href="javascript:void(0)"><i class="fa fa-check-circle i_com"></i> Комітети</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item nofilter z_solo_filter_clear" href="javascript:void(0)">Очистити</a>
                     </div>
                 </div>
             </div>
         </div>
-        `;
+    </div>
+    `;
         $('#table_stat').prepend(result);
         setTimeout(() => removeSoloListener(), 50);
-        data.table.type = 'solo' + id;
+        data.table.type = 'solo';// + id; TESTING
 
-        setMainTable('#' + newID, '#z_show_solo' + id);
-        setTimeout(() => {
-            $('#' + idProp).html('<i class="fa fa-line-chart"></i>');
-            setSoloFilterListener();
-        }, 10);
-    });
+        setMainTable('#' + containerId, '#z_show_solo' + id);
+        if (id !== undefined)
+            setTimeout(() => {
+                $('#open_full' + id).html('<i class="fa fa-line-chart"></i>');
+                setSoloFilterListener();
+            }, 10);
+
+        $('.z_loading_screen').remove();
+    }
+
+    let soloPromise;
+    if (sid === null) {
+        let count = 0;
+        let intervalId = setInterval(() => {
+            sid = getCookie('api');
+
+            if (sid !== null || count === 10) {
+                soloPromise = proceed();
+                clearInterval(intervalId);
+            }
+            count += 0.5;
+        }, 500);
+    } else {
+        soloPromise = proceed();
+    }
 }
 
 export function setSoloLeft() {
@@ -134,22 +146,24 @@ export function setSoloCenter() {
                 break;
             }
 
-        mainExecutives += `
-            <span class="mp-card">
-                <span class="full full-adapted text-center"
-                    rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title=""
-                    data-original-title="
-                        <span><small><i class='fa fa-flag' title='Головний комітет' aria-hidden='true'></i> ${person.department_name}
-                        <div class='text-warning'>${person.post_name}</div></small></span>
-                        <span><b>${escText(person.surname)}</b><br/>${person.firstname} ${person.patronymic}</span>
-                    ">
-                    <span class="ava">
-                        <a href="https://meeting.rada.gov.ua/work/vote/${person.nreg}"
-                            class="avaimg ${person.nreg}" target="_blank"></a>
+        if (person !== undefined) {
+            mainExecutives += `
+                <span class="mp-card">
+                    <span class="full full-adapted text-center"
+                        rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title=""
+                        data-original-title="
+                            <span><small><i class='fa fa-flag' title='Головний комітет' aria-hidden='true'></i> ${person.department_name}
+                            <div class='text-warning'>${person.post_name}</div></small></span>
+                            <span><b>${escText(person.surname)}</b><br/>${person.firstname} ${person.patronymic}</span>
+                        ">
+                        <span class="ava">
+                            <a href="https://meeting.rada.gov.ua/work/vote/${person.nreg}"
+                                class="avaimg ${person.nreg}" target="_blank"></a>
+                        </span>
                     </span>
                 </span>
-            </span>
-        `;
+            `;
+        }
     });
     let executives = '';
     data.table.lawSet[0].executives.forEach(exec => {
@@ -161,20 +175,22 @@ export function setSoloCenter() {
                 break;
             }
 
-        executives += `
-            <span class="mp-card">
-                <span class="full full-adapted text-center">
-                    <span class="ava" rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title=""
-                        data-original-title="
-                        <span><small>${person.department_name}
-                        <div class='text-warning'>${person.post_name}</div></small></span>
-                        <span><b>${escText(person.surname)}</b><br/>${person.firstname} ${person.patronymic}</span>">
-                        <a href="https://meeting.rada.gov.ua/work/vote/${person.nreg}"
-                            class="avaimg ${person.nreg}" target="_blank"></a>
+        if (person !== undefined) {
+            executives += `
+                <span class="mp-card">
+                    <span class="full full-adapted text-center">
+                        <span class="ava" rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title=""
+                            data-original-title="
+                            <span><small>${person.department_name}
+                            <div class='text-warning'>${person.post_name}</div></small></span>
+                            <span><b>${escText(person.surname)}</b><br/>${person.firstname} ${person.patronymic}</span>">
+                            <a href="https://meeting.rada.gov.ua/work/vote/${person.nreg}"
+                                class="avaimg ${person.nreg}" target="_blank"></a>
+                        </span>
                     </span>
                 </span>
-            </span>
-        `;
+            `;
+        }
     });
 
     let executivesBar = `
@@ -188,7 +204,7 @@ export function setSoloCenter() {
         <div class="z_solo_center bold">
             <div class="z_solo_center_title">
                 ${(data.table.lawSet[0].isEuro === 1 || data.table.lawSet[0].isEuro === true || data.table.lawSet[0].isEuro === 'true') ?
-        `<img class="z_solo_euro_pic" src="https://itd.rada.gov.ua/billInfo/img/euro.png" title="Євроінтеграційний законопроект">` : ''}
+        `<img class="z_solo_euro_pic" src="https://zakonst.rada.gov.ua/images/euro.png" title="Євроінтеграційний законопроект">` : ''}
                 <h4>${data.table.lawSet[0].name}</h4>
             </div>
             ${executivesBar}
@@ -217,7 +233,7 @@ export function setSoloDocumentsFirst(document, index) {
                 <button class="z_event_scrollto" title="Скролити до першої події у таблиці">
                 <i class="fa fa-forward" aria-hidden="true"></i>                </button>
             </div>
-            <div class="z_name">
+            <div class="z_name scroll-light">
                 ${document.first.name}
             </div>
         </div>
@@ -242,7 +258,7 @@ export function setSoloChronologyFirst(law, index) {
                 <button class="z_event_scrollto" title="Скролити до першої події у таблиці">
                 <i class="fa fa-forward" aria-hidden="true"></i>                </button>
             </div>
-            <div class="z_name">
+            <div class="z_name scroll-light">
                 ${(law.chronology[index].considered !== "notseen") ? `<div>${(law.chronology[index].status) ? law.chronology[index].status : law.chronology[index].seen_text}</div> <a href="${law.chronology[index].url}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>` : `<div>${law.chronology[index].seen_text}</div>`}
             </div>
         </div>
@@ -265,7 +281,7 @@ export function setSoloPassingsFirst(law, index) {
                 <button class="z_event_scrollto" title="Скролити до першої події у таблиці">
                 <i class="fa fa-forward" aria-hidden="true"></i></button>
             </div>
-            <div class="z_name">
+            <div class="z_name scroll-light">
                 ${law.passings[index].title}
             </div>
         </div>
@@ -326,7 +342,7 @@ export function setSoloCommitteeFirst(committee, index) {
                 <i class="fa fa-forward" aria-hidden="true"></i>
                 </button>
             </div>
-            <div class="z_name">
+            <div class="z_name scroll-light">
                 ${(committee.is_main === 1) ?
         '<i class="fa fa-flag" style="" rel="tooltip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="Головний комітет" aria-hidden="true"></i>' : ''}
                 ${escText(committee.person.department_name) }
@@ -339,6 +355,9 @@ export function setSoloCommitteeFirst(committee, index) {
 }
 
 export function processDocuments() {
+    if (data.table.lawSet[0].chronology === undefined)
+        return ;
+
     let table = data.table.lawSet[0];
     let documentsArray = [];
 
@@ -348,7 +367,7 @@ export function processDocuments() {
         let sourceDateReg = parseJsonDate(source.registrationDate);
         let sourceDocs = (source.docFiles.length > 1) ? `<i class="fa fa-files-o" aria-hidden="true"></i>` : '';
         source.docFiles.forEach((sourceFile, index) => sourceDocs +=
-            `<a href='${sourceFile.url}' rel="tooltip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="${sourceFile.type}">
+            `<a href='${sourceFile.url}' target="_blank" title="${sourceFile.type}">
                 ${(source.docFiles.length === 1) ? `<i class="fa fa-file-o" aria-hidden="true"></i>` : `[${index + 1}]`}</a>`);
 
         //todo source.preparation.forEach(...);
@@ -399,7 +418,7 @@ export function processDocuments() {
             let workflowDateReg = parseJsonDate(event.registrationDate);
             let workflowDocs = (event.docFiles.length > 1) ? `<i class="fa fa-files-o" aria-hidden="true"></i>` : '';
             event.docFiles.forEach((file, index) => workflowDocs +=
-                `<a href='${file.url}' rel="tooltip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="${file.type}">
+                `<a href='${file.url}' target="_blank" title="${file.type}">
                 ${(event.docFiles.length === 1) ? `<i class="fa fa-file-o" aria-hidden="true"></i>` : `[${index + 1}]`}</a>`);
             if (event.short_review !== null)
                 event.short_review = escText(event.short_review);
@@ -507,8 +526,8 @@ export function processDocuments() {
         let infoObject = {
             type: 'document',
             index: i + 1,
-            dateFirst: getTimeDelta(info.sortDateStart, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_pass * 100,
-            dateLast: getTimeDelta(info.sortDateEnd, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_pass * 100,
+            dateFirst: getTimeDelta(info.sortDateStart, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_line * 100,
+            dateLast: getTimeDelta(info.sortDateEnd, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_line * 100,
             lines: [{leftSide: info.leftSide, elements: [info]}]
         };
         let passingLineProps = createPassingLineProps(infoObject);
@@ -523,6 +542,9 @@ export function processDocuments() {
 }
 
 export function processChronology() {
+    if (data.table.lawSet[0].chronology === undefined)
+        return ;
+
     let i = 0;
     for (; i < data.table.lawSet[0].chronology.length; i++) {
         let el = data.table.lawSet[0].chronology[i];
@@ -531,7 +553,7 @@ export function processChronology() {
         let infoObject = {
             type: 'chronology',
             index: i + 1,
-            dateFirst: getTimeDelta(el.date_first !== undefined ? el.date_first : el.date_agenda, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_pass * 100,
+            dateFirst: getTimeDelta(el.date_first !== undefined ? el.date_first : el.date_agenda, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_line * 100,
             dateLast: 0,
             lines: [{leftSide: info.leftSide, elements: [info]}]
         };
@@ -548,6 +570,9 @@ export function processChronology() {
 }
 
 export function processPassings() {
+    if (data.table.lawSet[0].passings === undefined)
+        return ;
+
     let i = 0;
     for (; i < data.table.lawSet[0].passings.length; i++) {
         let el = data.table.lawSet[0].passings[i];
@@ -556,8 +581,8 @@ export function processPassings() {
         let infoObject = {
             type: 'passing',
             index: i + 1,
-            dateFirst: el.from / data.table.lawSet[0].time_pass * 100,
-            dateLast: (el.from + el.len) / data.table.lawSet[0].time_pass * 100,
+            dateFirst: el.from / data.table.lawSet[0].time_line * 100,
+            dateLast: (el.from + el.len) / data.table.lawSet[0].time_line * 100,
             lines: [{leftSide: info.leftSide, elements: [info]}]};
         let passingLineProps = createPassingLineProps(infoObject);
         let workflow = makePassingLine(passingLineProps, i + 1, el);
@@ -583,8 +608,8 @@ export function processCommittees() {
         let infoObject = {
             type: 'committee',
             index: i + 1,
-            dateFirst: getTimeDelta(committee.date_send, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_pass * 100,
-            dateLast: getTimeDelta((committee.date_fact !== null) ? committee.date_fact : data.table.lawSet[0].date_end, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_pass * 100,
+            dateFirst: getTimeDelta(committee.date_send, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_line * 100,
+            dateLast: getTimeDelta((committee.date_fact !== null) ? committee.date_fact : data.table.lawSet[0].date_end, data.table.lawSet[0].date_begin) / data.table.lawSet[0].time_line * 100,
             lines: [{leftSide: info.leftSide, elements: [info]}]
         };
         let passingLineProps = createPassingLineProps(infoObject);
@@ -905,7 +930,7 @@ export function setSoloProgressBar() {
             else if (lineWidth > 10)
                 lineDaysClass = 'text-warning';
         }
-        if (lineWidth <= 0.633)
+        if (lineWidth <= 0.633 && lineLeft + 0.633 < 100)
             lineWidth = 0.633;
         lineWidth += '%';
 

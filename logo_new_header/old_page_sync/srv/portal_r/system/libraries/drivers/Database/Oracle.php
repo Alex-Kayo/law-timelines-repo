@@ -1,0 +1,1164 @@
+<?php
+/**
+ * Драйвер бази даних ORACLE
+ */
+class Database_Oracle_Driver extends Database_Driver {
+
+	/**
+	 * Скомпілений SQL без умови LIMIT
+	 *
+	 * @var string
+	 */	
+	public $sqlWithoutLimit;
+	
+	/**
+	 * Ресурс з"єднання з БД
+	 * 
+	 * resource
+	 */
+	protected $link;
+
+	/**
+	 * Database configuration
+	 */
+	protected $db_config;
+
+	
+
+	/**
+	 * Масив bind змінних
+	 *
+	 * @var array (type/name/value)
+	 */
+	protected $arrBind = array();
+	
+	
+	/**
+	 * Конструктор класу
+	 *
+	 * @param  array  $config - конфігураціі БД
+	 */
+	public function __construct($config){		
+		$this->bindVar = array();
+		$this->db_config = $config;
+		Kohana::log('debug', 'Oracle Database Driver Initialized');
+	}
+
+	/**
+	 * Деструктор класу
+	 */
+	public function __destruct(){
+		if(is_resource($this->link)){			
+			oci_close($this->link);
+			
+		}
+		
+	}
+
+	/**
+	 * Створення з"эднання з БД
+	 *
+	 * @return unknown
+	 */
+	public function connect(){
+		// Перевірка на наявність з"єднання з БД
+		if (is_resource($this->link)){
+			return $this->link;
+			
+		}
+
+		// Імпорт змінних для формування з"єднання
+		extract($this->db_config['connection']);
+
+		$connect = ($this->db_config['persistent'] == TRUE) ? 'oci_pconnect' : 'oci_connect';
+
+		if(strlen($this->db_config['character_set']) > 0){
+			if ($this->link = $connect($user, $pass, $database, $this->db_config['character_set'])){	
+				$this->config['connection']['pass'] = NULL;
+				return $this->link;
+				
+			}			
+			
+		}	else {
+			if ($this->link = $connect($user, $pass, $database)){			
+				$this->config['connection']['pass'] = NULL;
+				return $this->link;
+				
+			}			
+			
+		}
+		
+
+		
+		return FALSE;
+	}
+
+
+	/**
+	 * Запит з LOB данними в файл
+	 *
+	 * @param  string  SQL запит
+	 * @param string fieldLobData - поле з LOB данними
+	 * @param string fieldFileName - поле з назвою файла
+	 * @return array - шлях до збережених файлів
+	 */
+	public function lobQueryToFile($sql, $fieldLobData, $fieldFileName){
+		$arrReturn = array();
+		
+		$resCursor = oci_parse($this->link, $sql);    	
+		if(!oci_execute($resCursor, OCI_DEFAULT)){
+			throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($resCursor)).' - '.$sql);
+			
+		}	
+
+		while ($arrResult = oci_fetch_array ($resCursor, OCI_ASSOC)) {		
+	    	if(is_object($arrResult[strtoupper($fieldLobData)])){
+	    	
+		    	if(file_exists($arrResult[strtoupper($fieldFileName)])){
+		    		unlink($arrResult[strtoupper($fieldFileName)]);
+		    		
+		    	}
+		    	
+		    	if($arrResult[strtoupper($fieldLobData)]->size()>0){	
+		    		
+		    		//Створення директорій
+		    		$arrSegment = explode('/', $arrResult[strtoupper($fieldFileName)]);
+		    		$arrSegment = array_slice($arrSegment,0,-1);
+		    		$arrPath = array();
+		    		
+		    		foreach ($arrSegment as $item){	
+		    			$item = (strlen($item) > 0 ? $item : '/');		    			
+		    			if(strlen($item) > 0){		    				
+			    			$arrPath[] = $item;
+			    			if(!is_dir(implode('/',$arrPath))){
+			    				mkdir(implode('/',$arrPath));
+			    				
+			    			}
+		    			}
+		    		}
+		    		
+		    		
+			    	$arrResult[strtoupper($fieldLobData)]->export($arrResult[strtoupper($fieldFileName)]);
+			    	chmod($arrResult[strtoupper($fieldFileName)], 0666);  
+			    	
+			    	$arrReturn[] = $arrResult[strtoupper($fieldFileName)];
+			    	
+		    	}
+	    	
+	    	}			
+			
+		}
+		return $arrReturn;
+
+	}
+	
+	
+	/**
+	 * Виконання SQL запиту
+	 *
+	 * @param string $sql - текст запиту
+	 * @return object
+	 */
+	public function query($sql){	
+			
+		if ($this->db_config['cache'] AND ! preg_match('#\b(?:INSERT|UPDATE|DELETE)\b#i', $sql)){
+
+			$hash = $this->query_hash($sql);
+
+			if ( !isset(self::$query_cache[$hash]))
+			{
+				// Закешувати запит
+				$resCursor = oci_parse($this->link, $sql);
+				if(!oci_execute($resCursor, OCI_DEFAULT)){
+					throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($resCursor)).' - '.$sql);
+					
+				}
+				
+				self::$query_cache[$hash] = new Oracle_Result($resCursor, $this->link, $this->db_config['object'], $sql);
+			}
+
+			// Повернути закешований запит
+			return self::$query_cache[$hash];
+		}
+		
+		$resCursor = oci_parse($this->link, $sql);
+		
+		if(oci_statement_type($resCursor) == 'SELECT'){ //Виконати запит
+			if(!oci_execute($resCursor, OCI_DEFAULT)){
+				throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($resCursor)).' - '.$sql);
+				
+			}		
+	
+			return new Oracle_Result($resCursor, $this->link, $this->db_config['object'], $sql);						
+			
+		}	else { //Виконати команду INSERT, UPDATE, DELETE	
+			$valBind = $this->arrBind;
+			$this->arrBind = array();
+			return new Oracle_Execute($resCursor, $this->link, $sql, $valBind, true);
+			
+		}
+
+		
+	}
+	
+	/**
+	 * Виконання команди INSERT, UPDATE, DELETE, з можливим додаванням bind змінних  
+	 *
+	 * @param   string  SQL запит
+	 * @return  object
+	 */
+	public function stmt_prepare($sql=''){
+		
+		if (preg_match('#\b(?:INSERT|UPDATE|DELETE)\b#i', $sql)){
+			
+			if (!is_resource($this->link)){
+				$this->connect();
+				
+			}			
+			
+			$resCursor = oci_parse($this->link, $sql);
+			return new Oracle_Execute($resCursor, $this->link, $sql);	
+			
+		}
+		
+	}	
+	
+	
+	/**
+	 * Встановити кодову сторінку для БД
+	 *
+	 */
+	public function set_charset($charset){
+		Kohana::log('error', get_class($this).' не підримується метод ' . __FUNCTION__ . ' виклик функції ігнорован');
+		return false;
+	}
+	
+	
+	 /**
+	 * Екранування змінних
+	 *
+	 * @param   mixed  $value - значення для екранування
+	 * @return  string
+	 */
+	public function escape($value){
+		return (string) $value;
+		
+	}
+	
+	
+	/**
+	 * Екранування назви табл
+	 *
+	 * @param string $table - назва таблиці
+	 * @return string
+	 */
+	public function escape_table($table){
+		return $table;
+		
+	}
+	
+
+	/**
+	 * Екранування назв стовбців
+	 *
+	 * @param string $column - назва стовбця
+	 * @return string
+	 */
+	public function escape_column($column){
+		if (!$this->db_config['escape']){
+			return $column;
+
+		}	
+		if (strtolower($column) == 'count(*)' OR $column == '*'){
+			return $column;
+			
+		}
+
+		if ( ! preg_match('/\b(?:rand|all|distinct(?:row)?|high_priority|sql_(?:small_result|b(?:ig_result|uffer_result)|no_cache|ca(?:che|lc_found_rows)))\s/i', $column)){
+			if (stripos($column, ' AS ') !== FALSE){
+
+				$column = str_ireplace(' AS ', ' AS ', $column);
+				$column = array_map(array($this, __FUNCTION__), explode(' AS ', $column));
+				return implode(' AS ', $column);
+			}
+
+			return $column;
+		}
+
+		$parts = explode(' ', $column);
+		$column = '';
+
+		for ($i = 0, $c = count($parts); $i < $c; $i++){
+			if ($i == ($c - 1)){
+				$column .= preg_replace('/[^.*]+/', '$0', $parts[$i]);
+				
+			} else {
+				$column .= $parts[$i].' ';
+			}
+		}
+		return $column;
+	}
+
+	
+	/**
+	 * Побудова UPDATE.
+	 *
+	 * @param   string  $table - назва таблиці
+	 * @param   array   $values key => value значення
+	 * @param   array   where умова
+	 * @return  string
+	 */
+	public function update($table, $values, $where){		
+		$this->arrBind = array();		
+		$arrTableInfo = $this->getTableInfo($table);
+		
+		$bindPoz = 0;
+		$valStr = array();
+		foreach ($values as $key => $val){	
+			
+			if($arrTableInfo[$key]['type'] !== 'date'){
+				$this->arrBind[$bindPoz] = array('name'	=> ':bind' . $bindPoz,
+												 'type'	=> $arrTableInfo[$key]['type'],
+												 'value'=> $val);
+															 
+				$valStr[] = $this->escape_column($key).' =  :bind' . $bindPoz;
+				$bindPoz++;				
+				
+			}	else {//тип DATE не біндується
+				$valStr[] = $this->escape_column($key).' =  ' . $val;
+				
+				
+			}
+					
+
+		}
+		$where = implode(' ', $where);
+		
+		if(strlen($where) > 0){
+			return 'UPDATE ' . $this->escape_table($table) . ' SET '.implode(', ', $valStr) . ' WHERE ' . $where;
+						
+		}	else {
+			return 'UPDATE ' . $this->escape_table($table) . ' SET '.implode(', ', $valStr);	
+			
+		}
+		
+	}
+	
+	
+	/**
+	 * Побудова INSERT.
+	 *
+	 * @param   string $table - назва таблиці
+	 * @param   array   $keys - назва поля
+	 * @param   array   $values - значення 
+	 * @return  string  $values
+	 */
+	public function insert($table, $keys, $values){
+		$this->arrBind = array();		
+		$arrTableInfo = $this->getTableInfo($table);
+
+		$bindPoz = 0;
+		$valStr = array();
+		for($lp1=0 ;$lp1<count($keys); $lp1++){
+			if($arrTableInfo[$keys[$lp1]]['type'] !== 'date'){
+				$this->arrBind[$bindPoz] = array('name'	=> ':bind' . $bindPoz,
+												 'type'	=> $arrTableInfo[$keys[$lp1]]['type'],
+												 'value'=> $values[$lp1]);
+															 
+				$valStr[] = ':bind' . $bindPoz;
+				$bindPoz++;				
+				
+			}	else {//тип DATE не біндується
+				$valStr[] = $values[$lp1];
+				
+				
+			}
+			
+
+		}		
+		
+		return 'INSERT INTO ' . $this->escape_table($table) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $valStr) . ')';		
+	}	
+	
+	
+	/**
+	 * Побудова REPLACE (НЕ ПІДРИМУЄТЬСЯ)
+	 */	
+	public function merge($table, $keys, $values){
+		Kohana::log('error', get_class($this).' не підримується метод ' . __FUNCTION__ . ' виклик функції ігнорован');
+		return false;		
+
+	}
+	
+	
+	/**
+	 * Додати умову з регулярним виразом
+	 *
+	 * @param string $field - назва поля
+	 * @param string $match - умова
+	 * @param string $type - тип
+	 * @param string $num_regexs - к-ть
+	 * @return string
+	 */
+	public function regex($field, $match = '', $type = 'AND ', $num_regexs){
+		if($num_regexs == 0){
+			$prefix = '';
+			
+		}	else {
+			$prefix = $type;
+			
+		}
+
+		return  $prefix . ' ' . "f_match(" . $this->escape_column($field) . ", '\b[" . $this->escape_str($match) . "]\b') = 1";
+	}
+
+	
+	/**
+	 * Додати умову з регулярним виразом (NOT)
+	 *
+	 * @param string $field - назва поля
+	 * @param string $match - умова
+	 * @param string $type - тип
+	 * @param string $num_regexs - к-ть
+	 * @return string
+	 */	
+	public function notregex($field, $match = '', $type = 'AND ', $num_regexs){
+		if($num_regexs == 0){
+			$prefix = '';
+			
+		}	else {
+			$prefix = $type;
+			
+		}
+
+		return  $prefix . ' ' . "f_match(" . $this->escape_column($field) . ", '\b[" . $this->escape_str($match) . "]\b') != 1";;
+	}
+
+	
+	/**
+	 * Формування конструкції LIMIT 
+	 */
+	public function limit($limit, $offset = 0){ }
+
+	
+	/**
+	 * Формування команди SELECT
+	 *
+	 * @param array $database
+	 * @return string
+	 */
+	public function compile_select($database){
+		$sql = ($database['distinct'] == TRUE) ? 'SELECT DISTINCT ' : 'SELECT ';
+		$sql .= (count($database['select']) > 0) ? implode(', ', $database['select']) : '*';
+
+		if (count($database['from']) > 0){
+			$froms = array();
+			foreach ($database['from'] as $from){
+				$froms[] = $this->escape_column($from);
+				
+			}
+			$sql .= "\nFROM ";
+			$sql .= implode(', ', $froms);
+		}
+
+		if (count($database['join']) > 0){
+			foreach($database['join'] AS $join)
+			{
+				$sql .= "\n".$join['type'].'JOIN '.implode(', ', $join['tables']).' ON '.$join['conditions'];
+			}
+		}
+
+		if (count($database['where']) > 0){
+			$sql .= "\nWHERE ";
+			
+		}
+
+		$sql .= implode("\n", $database['where']);
+
+		if (count($database['groupby']) > 0){
+			$sql .= "\nGROUP BY ";
+			$sql .= implode(', ', $database['groupby']);
+			
+		}
+
+		if (count($database['having']) > 0){
+			$sql .= "\nHAVING ";
+			$sql .= implode("\n", $database['having']);
+			
+		}
+
+		if (count($database['orderby']) > 0){
+			$sql .= "\nORDER BY ";
+			$sql .= implode(', ', $database['orderby']);
+			
+		}
+
+		$this->sqlWithoutLimit = $sql;
+		
+		if (is_numeric($database['limit'])){
+			$sql = "SELECT * FROM"
+	             . " (SELECT rownum as linenum, p_query.* FROM" 
+	             . " (" . $sql . ") p_query " 
+	             . " WHERE rownum <= ". ($database['offset'] + $database['limit']) 
+	             . ") WHERE linenum > " . $database['offset'];			
+			
+			
+		}		
+		return $sql;
+	}
+
+	/**
+	 * Екранування стрічки
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	public function escape_str($str){
+		if (!$this->db_config['escape']){
+			return $str;
+			
+		}
+
+		return str_replace("'", "''", $str);		
+	}
+
+	/**
+	 * Список таблиць
+	 *
+	 * @return array
+	 */
+	public function list_tables(Database $db)
+	{
+		static $tables;
+
+		if (empty($tables) AND $query = $db->query('select table_name from user_tables')){
+			foreach ($query->result(FALSE) as $row){
+				$tables[] = current($row);
+			}
+		}
+
+		return $tables;
+	}
+
+	/**
+	 * Остання помилка
+	 *
+	 * @return unknown
+	 */
+	public function show_error(){
+		return implode(' ',oci_error($this->link));
+		
+	}
+
+	
+	/**
+	 * Список полів таблиці
+	 *
+	 * @param string $table - назва таблиці
+	 * @return unknown
+	 */
+	public function list_fields($table)
+	{
+		static $tables;
+		
+		if (empty($tables[$table])){
+			foreach ($this->field_data($table) as $row)
+			{
+				// Make an associative array
+				$tables[$table][$row['field']] = $this->sql_type($row['type']);
+
+				if ($row['key'] === 'PRI'){
+					$tables[$table][$row['field']]['sequenced'] = TRUE;
+				}
+
+				if ($row['null'] === 'YES'){
+					$tables[$table][$row['field']]['null'] = TRUE;
+				}
+			}
+		}
+
+		return $tables[$table];
+	}
+
+	
+	/**
+	 * Отримати інформацію по полям таблиці
+	 *
+	 * @param string $tableName - назва таблиці
+	 * @return array  
+	 * 
+	 * @example array[index]['field'] - string  назва стовбця
+	 * 			array[index]['type'] - string  тип поля
+	 * 			array[index]['data_length'] - string загальна довжина поля
+	 * 			array[index]['null'] - string дозволені NULL (YES/NO)
+	 * 			array[index]['key'] - string ключ (PRI)
+	 * 			array[index]['default'] - string значення стовбця позамовчуванню
+	 * 
+	 */
+	public function field_data($tableName){		
+		
+		$cache = Cache::instance();
+		
+		$data = $cache->get('table_info_' . $tableName);
+		if(is_array($data)){
+			return $data;
+			
+		}
+		
+		
+		$tablesInfo = array();
+		
+		$sql = "SELECT us_c.column_name, us_c.data_default, us_c.data_type, us_c.nullable, cstr.constraint_type, CASE WHEN data_type='NUMBER'  THEN data_precision+data_scale ELSE data_length END AS data_length"
+			 . " FROM user_tab_cols us_c "
+			 . "    left join user_ind_columns ind on ind.table_name=us_c.table_name and ind.column_name =us_c.column_name" 
+			 . "    left join user_constraints cstr on cstr.index_name=ind.index_name and constraint_type='P'"
+			 . " WHERE us_c.table_name='" . strtoupper($tableName) ."' ORDER BY us_c.column_id";
+			 
+		$this->connect();	 
+		if (empty($tables) AND $query = $this->query($sql)){
+			foreach ($query->result(FALSE) as $row){						
+				$tablesInfo[] = array('field' => strtolower($row['column_name']),
+									  'type'	=>	strtolower($row['data_type']),
+									  'data_length'	=>	$row['data_length'],
+									  'null'	=>	($row['nullable'] == 'Y'?true:false),
+									  'key'	=>	(strlen($row['constraint_type']) > 0?'PRI':''),
+									  'default'	=>	$row['data_default'],
+									  'extra' => '');
+				
+			}
+		}
+		$cache->set('table_info_' . $tableName, $tablesInfo);		
+		return $tablesInfo;		
+	}	
+	
+	
+	/**
+	 * Повернути інформацію про стовбці таблиці
+	 *
+	 * @param unknown_type $tableName
+	 * @return array
+	 */
+	private function getTableInfo($tableName){
+		
+		$rezultInfo = array();		
+		
+		$arrTMP = $this->field_data($tableName);
+		for($lp1=0; $lp1<count($arrTMP); $lp1++){
+			$rezultInfo[$arrTMP[$lp1]['field']] = $arrTMP[$lp1];
+			
+		}
+		return $rezultInfo;
+		
+	}
+	
+	
+
+} // Завершення класу Database_Oracle_Driver Class
+
+
+
+
+/**
+ * Клас результату виконання запиту Oracle
+ */
+class Oracle_Result extends Database_Result {
+
+	
+	/**
+	 * Функція яка повертає рядок виборки
+	 *
+	 * @var bool
+	 */	
+	protected $fetch_type  = 'oci_fetch_object';
+	
+	/**
+	 * Тип масиву для виводу результату
+	 *
+	 * @var number
+	 */
+	protected $return_type = OCI_ASSOC;
+	
+	/**
+	 * Результат виборки в вигляді асоційлваного масиву
+	 *
+	 * @var array
+	 */
+	private $arrRezult = array();
+
+	/**
+	 * Конструктор класу
+	 *
+	 * @param  resource  $result - ресурс курсора
+	 * @param  resource  $link - ресурс з"єднання з БД
+	 * @param  boolean   $object - Признак чи повертає результат в вигляді об"єкту
+	 * @param  string    $sql - SQL запит для виконання
+	 */
+	public function __construct($result, $link, $object = TRUE, $sql){
+		$this->result = $result;
+
+		if (is_resource($result)){
+				$this->current_row = 0;
+				
+				
+				$arrTMP = array();
+				$this->total_rows = oci_fetch_all($result, $arrTMP, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);	
+				$this->arrRezult = array();				
+				while (list(,$val)=each($arrTMP)) {
+					$this->arrRezult[] = array_change_key_case($val, CASE_LOWER);	
+			
+				}				
+				$this->fetch_type = ($object === TRUE) ? 'oci_fetch_object' : 'oci_fetch_array';							
+
+			
+	
+		}
+		elseif (is_bool($result) && $result == FALSE){
+			throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($link)).' - '.$sql);
+		}
+
+		// Встановлення типу результату
+		$this->result($object);
+
+		// Збереження SQL команди
+		$this->sql = $sql;
+	}
+
+	/**
+	 * Деструктор класу
+	 */
+	public function __destruct(){
+		if (is_resource($this->result)){
+			oci_free_statement($this->result);
+			
+		}
+	}
+
+	
+	/**
+	 * Встановлення типу результату
+	 *
+	 * @param bool $object - Признак чи повертає результат в вигляді об"єкту
+	 * @param mixed $type - Тип вихідних даних
+	 * @return object
+	 */
+	public function result($object = TRUE, $type = OCI_ASSOC){	
+		$this->fetch_type = ((bool) $object) ? 'oci_fetch_object' : 'oci_fetch_array';
+			
+		if ($this->fetch_type == 'oci_fetch_object'){
+			$this->return_type = (is_string($type) AND Kohana::auto_load($type)) ? $type : 'stdClass';
+			
+		}
+		else{
+			$this->return_type = $type;
+			
+		}
+
+		return $this;		
+		
+	}
+
+	
+	/**
+	 * Повернути результат як масив
+	 *
+	 * @param mixed $object - Об"єкт виборки
+	 * @param mixed $type - Тип вихідних даних
+	 * @return array
+	 */
+	public function as_array($object = NULL, $type = OCI_ASSOC){
+		return $this->result_array($object, $type);
+		
+	}
+
+	
+	/**
+	 * Повернути результат як масив
+	 *
+	 * @param mixed $object - Об"єкт виборки
+	 * @param mixed $type - Тип вихідних даних
+	 * @return array
+	 */	
+	public function result_array($object = NULL, $type = OCI_ASSOC){
+		$rows = array();
+
+		if (is_string($object)){
+			$fetch = $object;
+		}
+		elseif (is_bool($object)){
+			if ($object === TRUE){
+				$fetch = 'oci_fetch_object';
+				$type = (is_string($type) AND Kohana::auto_load($type)) ? $type : 'stdClass';
+				
+			}
+			else{
+				$fetch = 'oci_fetch_array';
+				
+			}
+		}
+		else{
+			// Використати дані по замовчуванню
+			$fetch = $this->fetch_type;
+
+			if ($fetch == 'oci_fetch_object'){
+				$type = (is_string($this->return_type) AND Kohana::auto_load($this->return_type)) ? $this->return_type : 'stdClass';
+				
+			}
+		}
+
+		
+		$rows = array();
+		$this->current_row = 0;
+		for($lp1=0; $lp1<$this->total_rows; $lp1++){
+			$rows[] = $this->getRow($fetch, $type);
+			$this->current_row++;
+			
+		}
+
+		if(isset($rows)){
+			return $rows;
+			
+		}	else {
+			return array();
+			
+		}
+	}
+
+	/**
+	 * Повертає масив полів виборки
+	 *
+	 * @return array
+	 */
+	public function list_fields(){
+	 	$nCols = oci_num_fields($this->result);
+	 	
+	 	$fieldNames = array();
+	 	for($lp1=1; $lp1 <= $nCols; $lp1++){
+	 		$fieldNames[] = strtolower(oci_field_name($this->result, $lp1));
+	 		
+	 	}
+	 	return $fieldNames;
+	 	
+	}
+
+	/**
+	 * Пошук по курсору виборки (НЕ ПІДРИМУЄТЬСЯ)
+	 *
+	 */
+	public function seek($offset){
+		Kohana::log('error', get_class($this).' не підримується переміщення по курсору, ' . __FUNCTION__ . ' виклик функції ігнорован');
+
+		return FALSE;
+	}
+
+	/**
+	 * Повертає рядок виборки
+	 *
+	 * @param mixed $offset - назва змінної
+	 * @return mixed
+	 */
+	public function offsetGet($offset){
+		return $this->getRow($this->fetch_type, $this->return_type);
+
+	}
+
+
+	/**
+	 * Повертає рядок виборки
+	 * 
+	 * @param string $fetch_type
+	 * @param number $return_type
+	 */
+	private function getRow($fetch_type, $return_type){
+		try
+		{
+			$rezultData = false;			
+			if($fetch_type == 'oci_fetch_object'){ //Дані повертаються у вигляді об"єкту
+				if(!isset($this->arrRezult[$this->current_row]))	{
+					return null;
+					
+				}	else {
+					$rezultData = new Oracle_FetchObject($this->arrRezult[$this->current_row], $this->total_rows);
+				}
+				
+			}	elseif ($fetch_type == 'oci_fetch_array') { //Дані повертаються у вигляді масиву				
+				
+				if($return_type == OCI_ASSOC){ //асоційований масив
+					$rezultData = (isset($this->arrRezult[$this->current_row])?$this->arrRezult[$this->current_row]:null);
+					
+				}	elseif ($return_type == OCI_NUM){ //нумерований масив
+					$rezultData = (isset($this->arrRezult[$this->current_row])?array_values($this->arrRezult[$this->current_row]):null);
+					
+				}
+				
+			}
+			
+			return $rezultData;
+
+		}
+		catch(Kohana_Exception $e){
+			throw new Kohana_Database_Exception('database.error', $e->getMessage());
+			
+		}		
+		
+	}
+	
+	
+} // Завершення класу Oracle_Result Class
+
+
+
+class Oracle_FetchObject{
+	
+	/**
+	 * Кількість рядків виборки
+	 *
+	 * @var number
+	 */
+	public $total_rows = 0;	
+	
+	/**
+	 * Асоц масив рядка виборки
+	 * Асоц масив рядка виборки
+	 *
+	 * @var unknown_type
+	 */
+	private $setArray = array();
+	
+	public function __construct($setArray, $total_rows){
+		$this->setArray = $setArray;
+		$this->total_rows = $total_rows;
+		
+	}
+	
+	public function __get($key){		
+		//if(isset($this->setArray[$key])){
+			return $this->setArray[$key];
+			
+		/*	
+		}	else {
+			Kohana::log('error','Властивість не підримується класом ' .  get_class($this));
+			return null;
+
+			
+		}
+		*/
+		
+	}
+	
+	
+} // Завершення класу Oracle_FetchObject Class
+
+
+
+/**
+ * Виконання команди з можливістю bind змінних
+ *
+ */
+class Oracle_Execute{
+	
+	/**
+	 * Останнє значення автоінкрементного поля
+	 *
+	 * @var number
+	 */
+	private $last_id = null;
+	
+	/**
+	 * Кількість рядків, які були змінени командою
+	 *
+	 * @var number
+	 */
+	protected $total_rows = 0;
+	
+	/**
+	 * Ресурс oci_parse
+	 *
+	 * @var resource
+	 */
+	private $parse;
+	
+	/**
+	 * Ресурс з"эднання з БД
+	 *
+	 * @var resource
+	 */
+	private $link = null; 
+	
+	/**
+	 * Стрічка SQL команди 
+	 *
+	 * @var string
+	 */
+	private $sql;
+	
+	
+	/**
+	 * Масив bind змінних
+	 *
+	 * @var array
+	 */
+	public $bindVar = array();	
+	
+	
+	
+	private $commit = true;
+	
+	/**
+	 * Конструктор класу
+	 *
+	 * @param resource $parse - ресурс парсінга команди
+	 * @param resource $link - ресурс з"єднання з БД
+	 * @param string $sql - стрічка команди
+	 * @param array $arBind - масив bind змінних
+	 * @param bool $execute - виконання команди при створенны об"єкту
+	 */
+	public function __construct($parse, $link, $sql, $arBind = null, $execute = false, $commit = true){
+		
+		$this->parse = $parse;
+		$this->link = $link;
+		$this->sql = $sql;
+		$this->commit = $commit;
+		
+		if(!is_null($arBind) && count($arBind) > 0){
+			$this->bindVar = $arBind;
+			
+		}
+		
+		if($execute){
+			$this->execute();
+			
+		}
+		
+		
+	}
+	
+	public function insert_id(){	
+		return $this->last_id;
+		
+	}
+	
+	/**
+	 * Додати BIND змінну
+	 *
+	 * @param string $type - Тип змінної
+	 * @param string $name - Назва змінної
+	 * @param string $value - Значення змінної
+	 * 
+	 * @example addBind('CLOB', ':var1' $val1)
+	 */
+	public function addBind($type, $name, $value){
+		$this->bindVar[] = Array('type'	=>	strtoupper($type),
+								 'name'	=>	$name,
+								 'value'=>	$value);
+		
+		return $this;
+	}	
+	
+	
+	/**
+	 * Виконати SQL команду
+	 *
+	 */
+	public function execute(){
+		$lobObject = array();
+		$lobPoz = 0;
+		for($lp1=0; $lp1 < count($this->bindVar); $lp1++){
+			
+			if($this->bindVar[$lp1]['type'] == 'clob' || $this->bindVar[$lp1]['type'] == 'blob') {
+				
+				$lobObject[$lobPoz] = oci_new_descriptor($this->link, OCI_D_LOB);				
+				if(!is_object($lobObject[$lobPoz])){
+					throw new Kohana_Database_Exception('database.error', 'Помилка створення десриптора об"єкту LOB');
+					break;					
+					
+				}
+				
+				switch ($this->bindVar[$lp1]['type']){
+					
+					case 'clob':
+						oci_bind_by_name($this->parse, $this->bindVar[$lp1]['name'], $lobObject[$lobPoz], -1, OCI_B_CLOB);							
+						if(!$lobObject[$lobPoz]->WriteTemporary((strlen($this->bindVar[$lp1]['value']) == 0? null :$this->bindVar[$lp1]['value']), OCI_TEMP_CLOB)){
+							throw new Kohana_Database_Exception('database.error', 'Помилка завантаження CLOB');
+							
+						}
+						break;
+						
+					case 'blob':
+						oci_bind_by_name($this->parse, $this->bindVar[$lp1]['name'], $lobObject[$lobPoz], -1, OCI_B_BLOB);							
+						if(!$lobObject[$lobPoz]->WriteTemporary((strlen($this->bindVar[$lp1]['value']) == 0? null :$this->bindVar[$lp1]['value']), OCI_TEMP_BLOB)){
+							throw new Kohana_Database_Exception('database.error', 'Помилка завантаження BLOB');
+							
+						}
+						break;						
+						
+					default:
+						throw new Kohana_Database_Exception('database.error', 'Невизначений тип поля');
+						break;
+					
+				}
+				$lobPoz++;
+				
+			}  else {
+ 				oci_bind_by_name($this->parse, $this->bindVar[$lp1]['name'], $this->bindVar[$lp1]['value']);					
+				
+				
+			}
+			
+		}
+		
+		if(!oci_execute($this->parse, OCI_DEFAULT)){
+			throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($this->parse)) . ' - ' . $this->sql);
+			
+		}	
+		
+		
+		//Завершення транзакції
+		if($this->commit){
+			oci_commit($this->link);	
+			
+		}
+		
+		
+		
+		
+		$arrRezult = array();
+		$this->total_rows = oci_num_rows($this->parse);
+		
+		//Визначення LAST_ID (визначається з значення сіквенса, який повінен іменуватись наступним чином: SQ_<назва таблиці> )
+		if(oci_statement_type($this->parse) == 'INSERT'){
+			
+			$arrRezult = Array();
+			if (preg_match_all('/(INTO)([\s]+)([^\s]+)/', strtoupper($this->sql), $arrRezult) && strlen($arrRezult[3][0]) > 0){
+			
+				$sqlSeq = "SELECT last_number-1 AS curr_val FROM user_sequences WHERE sequence_name = 'SQ_" . $arrRezult[3][0] . "'";						
+				$rezultTMP = oci_parse($this->link, $sqlSeq);
+				if(!oci_execute($rezultTMP, OCI_DEFAULT)){
+					throw new Kohana_Database_Exception('database.error', implode(" - ", oci_error($rezultTMP)).' - '.$sqlSeq);
+				}
+				
+				$arrTMPRezult = oci_fetch_assoc($rezultTMP);
+				if(isset($arrTMPRezult['CURR_VAL'])){
+					$this->last_id = $arrTMPRezult['CURR_VAL'];
+					
+				}	else {
+					$this->last_id = false;
+					
+				}
+				
+			 }
+
+		}
+		
+		return $this;
+	}
+	
+	
+	public function noCommit(){
+		$this->commit = false;
+		
+		return $this;
+		
+	}
+	
+	
+}

@@ -16,7 +16,7 @@ import {
     soloPassingLineListener,
     soloTimeGraphListener
 } from "./table_interactions_solo.js";
-import {parseJsonDate} from "./parse_text.js";
+import {escText, parseJsonDate} from "./parse_text.js";
 import {
     processChronology, processCommittees,
     processDocuments,
@@ -35,7 +35,7 @@ export function setMainTable(parent = '#table_stat') {
     let result = '';
 
     result += `
-        ${($('#z_panel_container_main').length === 0) ? `<div id="z_panel_container_main" class="z_panel_container">
+        ${($('#z_panel_container_main').length === 0 && !data.table.type.includes('solo')) ? `<div id="z_panel_container_main" class="z_panel_container">
             <div class="zal-fullscreen">
                 <button id="eventResize" class="btn btn-sm btn-outline-secondary"><i class="fa fa-arrows-alt"></i> <span>Розгорнути</span></button>
                 <button id="eventSmall" class="btn btn-sm btn-outline-secondary"><i class="fa fa-compress"></i> <span>Згорнути</span></button>
@@ -160,7 +160,7 @@ export function setNav() {
             <div id="filter_frs" class="btn-group dropdown">
                 <a class="btn btn-link btn-sm dropdown-toggle with-caret" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-filter"></i><span class="d-none d-md-inline"> Фільтр</span></a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-sm" data-url="" style="will-change: transform;">
-                    <a class="dropdown-header bold">Групи подій:</a>
+                    <div class="dropdown-header bold">Групи подій:</div>
                     <a class="dropdown-item filter z_solo_filter_item" data-type="documents" href="javascript:void(0)"><i class="fa fa-check-circle i_doc"></i> Документи</a>
                     <a class="dropdown-item filter z_solo_filter_item" data-type="chronology" href="javascript:void(0)"><i class="fa fa-check-circle i_chr"></i> Хронологія</a>
                     <a class="dropdown-item filter z_solo_filter_item" data-type="passings" href="javascript:void(0)"><i class="fa fa-check-circle i_pas"></i> Проходження</a>
@@ -244,7 +244,7 @@ export function setZTable() {
         let today = getToday();
         if ((data.table.dateType === 'month') ?
             today.toString().slice(0, -3) === `${data.table.year},${data.table.month}` :
-            today[0] === data.table.year)
+            today[0] === data.table.year.toString())
             setToday();
 
         scrollToEventListener();
@@ -296,6 +296,8 @@ export function setZTable() {
         processCommittees();
 
         sortSoloRows();
+
+        console.log(data);
 
         if (document.getElementById(`z_table_wrapper_solo`).offsetHeight > document.getElementById(`z_show_${data.table.type}`).offsetHeight) {
             $(`#z_cm_solo${data.table.lawSet[0].id}`).attr('style', 'height:100%');
@@ -394,13 +396,13 @@ export function setFirstInfo(law, index) {
             </div>
             <div class="z_status ${law.statusClass}">
             ${(law.isEuro === 1 || law.isEuro === true || law.isEuro === 'true') ?
-        `<img class="z_solo_euro_pic" src="https://itd.rada.gov.ua/billInfo/img/euro.png" title="Євроінтеграційний законопроект" style="margin-right:auto">` : ''}
+        `<img class="z_solo_euro_pic" src="https://zakonst.rada.gov.ua/images/euro.png" title="Євроінтеграційний законопроект" style="margin-right:auto">` : ''}
             <div class="z_status_title">${law.currentPhase.status}</div>
                 <button class="z_event_scrollto" title="Скролити до останньої події у таблиці">
                 <i class="fa fa-forward" aria-hidden="true"></i>
                 </button>
             </div>
-            <div class="z_name"  rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title="" data-original-title="${(data.table.type === 'standard') ? law.name : law.passings[index].title}">
+            <div class="z_name"  rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title="" data-original-title="${escText((data.table.type === 'standard') ? law.name : law.passings[index].title)}">
                 ${law.name}
             </div>
             <button id="open_full${law.id}" class="btn btn-outline-secondary z_open_full" rel="tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title="" data-original-title="Перейти до індивідуальної таблиці">
@@ -869,7 +871,7 @@ export function setFilter(parent = '#z_panel_container_main') {
 <div id="z_sort_list" class="btn-group dropdown">
 <a class="btn btn-link btn-sm dropdown-toggle with-caret" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-sort-numeric-asc icon-info"></i><span class="d-none d-md-inline z_list_title"> Сортування</span></a>
 <div class="dropdown-menu scroll-light dropdown-menu-right dropdown-sm" data-url="">
-<a class="dropdown-header bold" href="javascript:void(0)">Тип</a>
+<div class="dropdown-header bold">Тип</div>
 <a id="z_sort_laws_up" class="dropdown-item filter d-flex align-items-center sort_laws" href="javascript:void(0)">Пряме</a>
 <a id="z_sort_laws_down" class="dropdown-item filter d-flex align-items-center sort_laws" href="javascript:void(0)">Зворотнє</a>
 <a id="z_sort_laws_up_pass" class="dropdown-item filter d-flex align-items-center sort_laws" href="javascript:void(0)">За першою подією</a>
@@ -882,12 +884,12 @@ export function setFilter(parent = '#z_panel_container_main') {
 <div class="dropdown-menu dropdown-menu-right dropdown-sm filter-list scroll-light" data-url="">
 <a id="filter-clear" class="dropdown-item nofilter filter-option" href="javascript:void(0)">Очистити</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-header bold" href="javascript:void(0)">Ініціатор</a>
+<div class="dropdown-header bold">Ініціатор</div>
 <a id="filter-subject-president" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><b><span class="text-danger">П</span></b>Президент України</a>
 <a id="filter-subject-kabmin" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><b><span class="text-success">У</span></b>Кабінет Міністрів України</a>
 <a id="filter-subject-nardep" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><b><span class="text-primary">Д</span></b>Народний депутат України</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-header bold" href="javascript:void(0)">Стан</a>
+<div class="dropdown-header bold">Стан</div>
 <a id="filter-status-success" class="dropdown-item filter d-flex align-items-center filter-option text-success" href="javascript:void(0)">Прийнято</a>
 <a id="filter-status-info" class="dropdown-item filter d-flex align-items-center filter-option text-info" href="javascript:void(0)">Опрацьовано</a>
 <a id="filter-status-primary" class="dropdown-item filter d-flex align-items-center filter-option text-primary" href="javascript:void(0)">На опрацюванні</a>
@@ -895,14 +897,18 @@ export function setFilter(parent = '#z_panel_container_main') {
 <a id="filter-status-danger" class="dropdown-item filter d-flex align-items-center filter-option text-danger" href="javascript:void(0)">Відхилено</a>
 <a id="filter-status-other" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Інше</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-header bold" href="javascript:void(0)">Тип проекту</a>
+<div class="dropdown-header bold">Тип проекту</div>
 <a id="filter-type-law" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Закон</a>
 <a id="filter-type-resolution" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Постанова</a>
 <a id="filter-type-proposal" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Пропозиції Президента</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-header bold" href="javascript:void(0)">Особливі</a>
-<a id="filter-type-euro" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><img class="z_solo_euro_pic" src="https://itd.rada.gov.ua/billInfo/img/euro.png">Євроінтеграційні</a>
-<a id="filter-type-urgent" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><i class="fa fa-circle" style="font-size:0.7rem;padding-top:0.1rem" aria-hidden="true"></i> Невідкладні</a>
+<div class="dropdown-header bold">Акт</div>
+<a id="filter-act-accept" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Прийнято</a>
+<a id="filter-act-notaccept" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)">Не прийнято</a>
+<div class="dropdown-divider"></div>
+<div class="dropdown-header bold">Особливі</div>
+${(filterOptions !== undefined && filterOptions.isEuro) ? '' : `<a id="filter-type-euro" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><img class="z_solo_euro_pic" src="https://zakonst.rada.gov.ua/images/euro.png">Євроінтеграційні</a>`}
+${(filterOptions !== undefined && filterOptions.isUrgent) ? '' : `<a id="filter-type-urgent" class="dropdown-item filter d-flex align-items-center filter-option" href="javascript:void(0)"><i class="fa fa-circle" style="font-size:0.7rem;padding-top:0.1rem" aria-hidden="true"></i> Невідкладні</a>`}
 </div>
 </div>
     `;
@@ -949,11 +955,11 @@ export function setToday() {
     $(`#z_solo_today_${data.table.type}`)
         .css('margin-left',
             `${todayOffset}px`)
-        .css('width', `${(data.table.type === 'standard') ? data.standardDayWidth : data.soloDayWidth}px`);
+        .css('width', `${(data.table.type === 'standard') ? data.standardDayWidth : data.soloDayWidth + 1}px`);
     $(`#z_solo_today_nav_${data.table.type}`)
         .css('margin-left',
             `calc(var(--first-width) + ${todayOffset}px)`)
-        .css('width', `${(data.table.type === 'standard') ? data.standardDayWidth : data.soloDayWidth}px`);
+        .css('width', `${(data.table.type === 'standard') ? data.standardDayWidth : data.soloDayWidth + 1}px`);
     $(`#z_solo_today_overlay_${data.table.type}`).css('width',
         `calc(100% - var(--first-width) - ${(data.table.type === 'standard') ? data.standardDayWidth : data.soloDayWidth} - ${todayOffset}px)`);
 

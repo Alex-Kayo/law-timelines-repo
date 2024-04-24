@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="uk" class=" cookies svg cssgradients flexbox"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Електронний кабінет</title>
+
+    <meta name="description" content="Електронний кабінет користувача сервісів Верховної Ради України">
+    <meta name="keywords" content="вхід, вход, login, аутентифікація, аутентификация, authentification, персональний кабінет, персональный кабинет, personal office, електронний кабінет, особистий кабінет, профіль користувача, профиль пользователя, user's profile, електронні сервіси, electronic services">
+
+    <meta property="og:image" content="https://zakonst.rada.gov.ua/images/design1/img/gerb.png">
+    <meta property="og:image" content="https://zakonst.rada.gov.ua/images/logos/vr_logo_fb.png">
+    <meta property="og:title" content="Електронний кабінет">
+    <meta property="og:url" content="https://id.rada.gov.ua/go/login/page2">
+    <meta property="og:type" content="article">
+    <meta property="og:updated_time" content="">
+    <meta property="og:site_name" content="Офіційний вебпортал парламенту України">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="creator">
+    <meta name="twitter:site" content="@verkhovna_rada">
+    <meta name="twitter:url" content="https://id.rada.gov.ua/go/login/page2">
+    <meta name="twitter:title" content="Електронний кабінет">
+    <meta name="twitter:image" content="https://zakonst.rada.gov.ua/images/logos/vr_logo_tw.png">
+
+    <link rel="apple-touch-icon" href="https://zakonst.rada.gov.ua/apple-touch-icon.png">
+    <link rel="icon" sizes="192x192" href="https://zakonst.rada.gov.ua/android-chrome-192x192.png">
+    <link rel="icon" href="https://zakonst.rada.gov.ua/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#e3e9ec">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#e3e9ec">
+
+
+    <link rel="stylesheet" href="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://zakonst.rada.gov.ua/utils/fontawesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://zakonst.rada.gov.ua/utils/fonts/ProbaPro/stylesheet.css" rel="stylesheet">
+    <link href="https://zakonst.rada.gov.ua/utils/nice-select.css" rel="stylesheet">
+    <link href="https://zakonst.rada.gov.ua/images/design1/css/styles3.css" rel="stylesheet">
+    <link href="https://zakonst.rada.gov.ua/images/design1/css/styles4.css" rel="stylesheet">
+    <link href="https://zakonst.rada.gov.ua/images/design1/css/cabinet.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/jquery/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/popper.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/bootstrap.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/bootstrap-select.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/modernizr-custom.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/tinynav.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/jquery/jquery.nice-select.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/images/design1/js/script.js"></script>
+
+    <script>statistic={link:"https://id.rada.gov.ua/auth/util/statistic",stat:"dcfe64720c4994eebda54cdb5923ae7f+H4sIAMKMQ2UAAwt1M9LLyU/PzOPk5AQAnyiawAwAAAA="}</script>
+    <object class="chrome-extension://jffafkigfgmjafhpkoibhfefeaebmccg/" style="display: none; visibility: hidden;"></object>
+    <style>
+        :root {
+            --main-color: #0000af;
+            --success-color: #4cae4c;
+            --fail-color: #d43f3a;
+        }
+
+        .diia-box {
+            display: flex;
+            justify-content: center;
+        }
+
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        #diia-border-loader {
+            width: 160px;
+            height: 160px;
+            --angle: 0deg;
+            border-radius: 3px;
+            border: 2px solid transparent;
+            background: conic-gradient(from var(--angle), var(--a_color) 0deg, var(--a_color) 90deg, white 90deg, white 180deg, var(--a_color) 180deg, var(--a_color) 270deg, white 270deg) border-box;
+            animation: 3s rotate linear infinite;
+            /*	background: linear-gradient(#f0f0f0,#f5f5f5) padding-box, linear-gradient(var(--angle), orange, purple) border-box;*/
+            /*	border-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1;	*/
+            /*	background: linear-gradient(#cfcfcf,#cfcfcf) padding-box, linear-gradient(to top right, #ff0000 0%, #1000ff 100%) border-box;*/
+        }
+        #diia-border-loader.inactive {
+            background: white;
+        }
+        #diia-border-loader.success {
+            background: conic-gradient(from var(--angle), var(--yes_color) 0deg, var(--yes_color) 90deg, white 90deg, white 180deg, var(--yes_color) 180deg, var(--yes_color) 270deg, white 270deg) border-box;
+        }
+        #diia-border-loader.fail {
+            background: var(--no_color);
+        }
+
+        @keyframes rotate {
+            to {
+                --angle: 360deg;
+            }
+        }
+
+        .diia-container {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        #diia-logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        #diia-timer {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        #diia-timer.inactive {
+            opacity: 0;
+        }
+
+
+        #diia-button {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="main-bg dark">
+<div id="page">
+    <main class="col"><div id="content">
+        <div class="page-header"><h1>Вхід за допомогою електронного підпису</h1></div>
+
+        <section id="Login">
+            <a name="Form"></a>
+            <script>
+                if (typeof Promise !== "function")
+                    document.write('<script src="/utils/eusign/JS/promise.min.js"><\/script>');
+
+                $(document).ready(function () {
+                    $('input[type=password] + a.input-switch').click(function(e) {
+                        var $inputPass = $(this).parent().find('input');
+                        if ($inputPass.attr('type') === 'password') {
+                            $inputPass.attr('type', 'text');
+                            $(this).find('.fa').removeClass('fa-eye').addClass('fa-eye-slash');
+                        } else {
+                            $inputPass.attr('type', 'password');
+                            $(this).find('.fa').removeClass('fa-eye-slash').addClass('fa-eye');
+                        }
+                        return false;
+                    });
+                    $("#pkKeyMediaSelect").click(function(e) {
+                        if ($(this).has('option').length <= 0) {
+                            AddWarnMess('', 'Вставьте носій ключа в USB!', 'warning');
+                        }
+                        return true;
+                    });
+                    $('form').submit(function( event ) {
+                        return false;
+                    });
+                });
+            </script>
+            <!-- Підключення скрипта з обгорткою для бібліотеки "ІІТ Користувач ЦСК Підпис (JavaScript)" -->
+            <script src="https://id.rada.gov.ua/utils/eusign/JS/euscp.js"></script>
+            <!-- Підключення основного скрипта сторінки тестування -->
+            <script src="https://id.rada.gov.ua/utils/eusign/JS/main.js"></script>
+
+            <div id="form-login" class="card my-3 mx-auto">
+                <h4 class="card-header bold">Особистий ключ</h4>
+                <div class="card-body container-fluid">
+                    <div class="select-custom">
+                        <ul class="sections_tabs nav nav-tabs tabs-always" id="pkTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="pkTypeFile" data-toggle="tab" href="#pkFileBlock" role="tab" aria-controls="pkFileBlock" aria-selected="false"><i class="fa fa-upload"></i> Файл</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pkTypeKeyMedia" data-toggle="tab" href="#pkKeyMediaBlock" role="tab" aria-controls="pkKeyMediaBlock" aria-selected="false"><i class="fa fa-microchip"></i> Носій</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pkTypeWeb" data-toggle="tab" href="#pkWebBlock" role="tab" aria-controls="pkWebBlock" aria-selected="true"><i class="fa fa-cloud-upload"></i> Дія.Підпис</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="pkType" checked="">
+
+                    <div class="tab-content" style="min-height:13rem">
+                        <div class="tab-pane fade" id="pkFileBlock" role="tabpanel" aria-labelledby="pkTypeFile">
+                            <div class="form-group">
+                                <label for="pkFile">Файл з ключем: <small class="text-muted">(зазвичай "Key-6.dat" або *.pfx,*.pk8,*.zs2,*.jks)</small></label>
+                                <input id="pkFile" type="file" class="form-control form-control-file" accept=".dat,.pfx,.pk8,.zs2,.jks" required="">
+                            </div>
+                            <div class="form-group input-switch">
+                                <label for="pkFilePassword">Пароль:</label>
+                                <input id="pkFilePassword" type="password" class="form-control" placeholder="Ваш пароль..." pattern="^\s*[!-~]+\s*$" required="" spellcheck="false">
+                                <a href="#" class="input-switch" tabindex="-1"><i class="fa fa-eye" title="Переглянути"></i></a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pkKeyMediaBlock" role="tabpanel" aria-labelledby="pkTypeKeyMedia">
+                            <div class="form-group">
+                                <label for="pkKeyMediaSelect">Носій особистого ключа: <small class="text-muted">(Не забудьте вставити пристрій в USB)</small></label>
+                                <select id="pkKeyMediaSelect" class="form-control"></select>
+                            </div>
+                            <div class="form-group input-switch">
+                                <label for="pkFilePassword">Пароль:</label>
+                                <input id="pkKeyMediaPassword" type="password" class="form-control" placeholder="Ваш пароль..." pattern="^\s*[!-~]+\s*$" required="" spellcheck="false">
+                                <a href="#" class="input-switch" tabindex="-1"><i class="fa fa-eye" title="Переглянути"></i></a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade text-center active show" id="pkWebBlock" role="tabpanel" aria-labelledby="pkTypeWeb">
+                            <!--<h3 class="bold mb-3"><span class="badge badge-pill badge-secondary bg-dark" style="font-size: 1.25rem; margin: 0 .15rem">Дія</span></h3>-->
+                            <div id="diia-timer" class="">За допомогою</div>
+                            <div class="box diia-box">
+                                <div id="diia-border-loader" class="inactive">
+                                    <div class="diia-container">
+                                        <img id="diia-logo" src="http://tzakon4.rada.gov.ua/bills/main_law_timelines/diya_placeholder/123.png">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="diiaBlock" class="inactive">
+                                <button type="button" id="diia-button" class="btn btn-lg mt-3 btn-primary" data-api="https://notify.rada.gov.ua/api/diia/"><i class="fa fa-qrcode"></i> Отримати код</button>
+                                <button type="button" id="diia-wait" class="btn btn-warning btn-lg mt-3"><i class="fa fa-spinner fa-pulse fa-fw"></i> Очікуйте, будь ласка</button>
+                                <a href="javascript:void(0)" target="_blank" id="diia-app" class="btn btn-success btn-lg mt-3" data-api="https://diia.page.link?link="><i class="fa fa-mobile"></i> Перейти до Дії</a>
+                                <div class="small mt-2 text-muted sign-remind"><i class="fa fa-exclamation-triangle icon-info" aria-hidden="true" title="Увага"></i> Після отримання коду виконуйте інструкції у застосунку</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="/auth/user/idlogin" method="post" name="auth">
+                        <input id="data-textarea" type="hidden" value="eb32b7e0-56cb-4a57-8695-5d80ae47037d">
+                        <div id="signBlock" class="ready hidden">
+                            <button type="button" id="init-button" class="btn btn-warning btn-lg"><i class="fa fa-spinner fa-pulse fa-fw"></i> Ініціалізація...</button>
+                            <button type="submit" id="sign-button" class="btn btn-primary btn-lg"><i class="fa fa-key"></i> Накласти підпис</button>
+                            <button type="button" id="wait-button" class="btn btn-secondary btn-lg" disabled=""><i class="fa fa-spinner fa-pulse fa-fw"></i> Накладається підпис</button>
+                            <div class="small mt-2 text-muted sign-remind"><i class="fa fa-exclamation-triangle icon-info" aria-hidden="true" title="Увага"></i> Оберіть особистий ключ та введіть до нього пароль</div>
+                            <div class="form-group">
+                                <textarea id="sign-textarea" class="form-control w-100 scroll-middle hidden mt-2" readonly=""></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a class="page-link page-previous text-center" href="/auth/user/login/page"><i class="fa fa-sign-in"></i> Логін або e-mail</a>
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+
+
+    </div></main>
+
+
+    <script>
+        (function () {
+            var cookie_timeout;
+            $("#cookieBtn").click(function (event) {
+                setCookie(".AspNet.Consent", 'yes');
+                $("#cookieConsent").close();
+                if (typeof cookie_timeout != 'undefined') {
+                    clearInterval(cookie_timeout);
+                }
+            });
+            if (getCookie('.AspNet.Consent') != 'yes') {
+                setTimeout(function(){
+                    $("#cookieConsent").removeClass('hidden').addClass('show');
+                    $("#cookieBtn").append('<strong class="badge badge-warning" style="width:1.35rem">30</strong>');
+                    cookie_timeout = setInterval(function(){
+                        let $counter = $("#cookieBtn strong");
+                        let cnt = $counter.text() - 1;
+                        if (cnt<=0) {
+                            $("#cookieBtn strong").remove();
+                            clearInterval(cookie_timeout);
+                            $("#cookieConsent").addClass('hidden');
+                        } else {
+                            $counter.text(cnt);
+                        }
+                    }, 1000);
+                }, 5000);
+            }
+        })();
+        </script>
+
+    <script>    //CONSTANTS
+        const data = {
+            TITLE: {
+                SERVER: 'З\'єднуємось з сервером',
+                SUCCESS: 'Авторизація успішна',
+                EXPIRED: 'Час очікування вичерпано',
+                ERROR: 'Сталася помилка!'
+            },
+            BUTTON: {
+                SERVER: '<i class="fa fa-qrcode"></i> Очікуйте будь ласка',
+                VALID: '<i class="fa fa-qrcode"></i> Перейти до Дії',
+                EXPIRED: '<i class="fa fa-qrcode"></i> Отримати код'
+            }
+        }
+    </script>
+    <script type="text/javascript" src="script.js"></script>
+
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/jquery/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/popper.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/bootstrap.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/bootstrap_4_5/js/bootstrap-select.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/modernizr-custom.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/tinynav.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/utils/jquery/jquery.nice-select.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://zakonst.rada.gov.ua/images/design1/js/script.js"></script>
+
+    <script>statistic={link:"https://id.rada.gov.ua/auth/util/statistic",stat:"dcfe64720c4994eebda54cdb5923ae7f+H4sIAMKMQ2UAAwt1M9LLyU/PzOPk5AQAnyiawAwAAAA="}</script>
+    <object class="chrome-extension://jffafkigfgmjafhpkoibhfefeaebmccg/" style="display: none; visibility: hidden;"></object>
+
+</div></body></html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="18px" viewBox="0 0 10 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>B979634A-A3A3-4EA5-BFFF-6C01A6AA5F79</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M10.388375,13.051 L8.974375,14.465 L12.509375,18 L8.974375,21.535 L10.388375,22.949 L14.630375,18.707 C15.021375,18.317 15.021375,17.684 14.630375,17.293 L10.388375,13.051 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI/Blocks/Sitemap/Collapsed" transform="translate(-211.000000, -33.000000)">
+            <g id="Sitemap---Collapsed">
+                <g id="24px/outlined/icn-expand" transform="translate(204.000000, 30.000000)">
+                    <path d="M10.388375,1.025625 L8.974375,2.439625 L12.509375,5.974625 L8.974375,9.509625 L10.388375,10.923625 L14.630375,6.681625 C15.021375,6.291625 15.021375,5.658625 14.630375,5.267625 L10.388375,1.025625 Z" id="Fill-3" fill="#004BC1" fill-rule="nonzero" transform="translate(11.949000, 5.974625) scale(1, -1) rotate(90.000000) translate(-11.949000, -5.974625) "></path>
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Fill-3-Copy" fill="#004BC1" fill-rule="nonzero" transform="translate(11.949000, 18.000000) rotate(90.000000) translate(-11.949000, -18.000000) " xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

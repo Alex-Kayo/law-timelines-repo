@@ -1,0 +1,55 @@
+
+.yellow-panel {
+    background: url("/img/pyellow.png") repeat-y scroll 0 0 #F4F3E3;
+    margin: 25px 0 10px;
+    width: 353px;
+}
+
+a.bbutton {
+    background: url("/img/in_block_menu_BG_L.png") no-repeat scroll left top transparent;
+    display: block;
+    float: left;
+    height: 31px;
+    margin: 52px 4px 5px 0;
+    padding-left: 4px;
+    text-decoration: none;
+    margin-bottom: -30px;
+}
+
+a.ybutton span {
+    line-height: 12px;
+
+}
+.lang {
+    margin-top: -175px;
+}
+
+.white2-panel {
+    margin-bottom: 8px;
+    margin-top: 28px;
+}
+.white2-panel1 {
+/*    margin-top: 20px;*/
+}
+
+.subh2 {
+    padding-top: 4px;
+}
+
+a.search_button {
+    
+/*    margin-right: 210px;*/
+}
+.clr2 {
+    
+    margin-top: -30px;
+}
+#content-left .panel-head {
+    padding:0 0 10px 10px;
+}
+
+#content-left .clr2 {
+   margin-top: 10px; 
+   margin-bottom: 25px
+}
+

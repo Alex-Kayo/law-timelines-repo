@@ -1,0 +1,24 @@
+<!--TOP MENU cut -->
+<ul id="topnav" class="lbut">
+<li><a href="{$site_domain}">Головна</a></li>
+<li><a href="http://portal.rada.gov.ua/rada/control/uk/publish/article/info_left?art_id=276808&cat_id=276658">Доступ до публічної інформації</a></li>
+<li><a href="http://w1.c1.rada.gov.ua/pls/site2/pkg_public_info.request_form">Електронна форма запиту</a></li>
+<li><a href="http://portal.rada.gov.ua/rada/control/uk/publish/article/info_left?art_id=276817&cat_id=276822">Види інформації</a></li>
+<li><a href="http://portal.rada.gov.ua/rada/control/uk/publish/article/info_left?art_id=281285&cat_id=281253">Звіти</a></li>
+<li><a href="#">Контакти</a>
+    <div class="sub">
+    <ul>
+        <li><h3><a href="#">Зворотній зв'язок</h3></a></li>
+
+        <!--<li><a href="/infocenter">Віртуальна приймальня</a></li>-->
+        <li><a href="http://vzvernen.rada.gov.ua/vzvernen/control/uk/index">Відділ з питань звернень громадян</a></li>
+        <li><a href="http://portal.rada.gov.ua/rada/control/uk/publish/category/news_top?cat_id=31973">Порядок акредитації, Положення про екскурсії</a></li>
+        <li><a href="{$site_domain}feedback">Контактна інформація</a></li>
+        <li><a href="{$site_domain}address.html">Адреса Верховної Ради України</a></li>
+        <!--http://w1.c1.rada.gov.ua/pls/site/el_main.vr_address-->
+    </ul>
+
+    </div>
+</li>
+</ul>
+<!-- cut TOP MENU-->

@@ -1,0 +1,40 @@
+.temp{
+  display: none;
+}
+
+#content-all .panel{
+  background: none;
+}
+
+#content-all .panel2, #content-all .panel1{
+  background: none;
+}
+
+.lang{
+  display: none;
+}
+
+.panel-head{
+  display: none;
+}
+
+h1{
+  color: black;
+  font-weight: bold;
+}
+
+.breadcrump{
+  background: none;
+  border-bottom:1px solid #7487AB;
+}
+.breadcrump2{
+  background: none;
+}
+
+#wrapper{
+  background: none;
+}
+
+#footer{
+  display: none;
+}

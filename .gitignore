@@ -1,0 +1,16 @@
+.cache
+.git
+.idea
+css
+diya_placeholder
+graphs
+js
+login_page
+node_modules
+stage_diagrams
+
+.gitignore
+index.html
+package.json
+package-lock.json
+README.md

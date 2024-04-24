@@ -118,7 +118,7 @@ export function compareDates(a, b, type = 'z_sort_laws_up') {
  */
 
 export function newLawSet(newLawSet) {
-    if (newLawSet[0] === undefined || newLawSet[0].error !== undefined)
+    if (newLawSet[0] === undefined || newLawSet[0].id === undefined || newLawSet[0].error !== undefined)
         return false;
 
     cacheTable();
@@ -344,80 +344,13 @@ export function goToClosestEvent(el) {
     $(`#z_panel_${(data.table.dateType === 'month') ? 'month' + ('0' + parseInt(month)).slice(-2) : 'year' + year}`).trigger('click');
 }
 
-export function zRowArrowScrollToListener() {
-    setInterval(() => {
-        for (let i = 1; i <= data.const.PAGE_SIZE; i++) {
-            let row = $(`#z_row${i}`);
-            if (elementIsVisible(row) === false)
-                continue ;
-
-            let lineIsVisible = false;
-            let events = row.children(':not(.z_row_arrow, .z_first)').children('button');
-            if (events.length === 0)
-                continue;
-            Object.values(events).slice(0, -2).forEach(event => {
-                lineIsVisible = lineIsVisible || elementIsVisible(event);
-            });
-
-            row.children('.z_row_arrow').css('visibility', (lineIsVisible === true) ? 'hidden' : 'visible');
-        }
-    }, 50);
-}
-
 export function zEventListener() {
     $('.z_event').on('click', function() {
         closeEventListener();
         goToMonthListener();
         $("[data-toggle='tooltip']").tooltip();
-        //shiftZInfo(jQuery(this).attr('id'));
     });
 }
-
-/*function shiftZInfo(id) {
-    let el = $('#' + id);
-    let side = 0;
-    let first = $('.z_first').width();
-
-    side = el.offset().left + el.width() / 2 - (el.parent().children('.z_event_info').width() / 2);
-    side += (side > $(window).width() / 2 + first) ? el.parent().children('.z_event_info').width() + 102 : -102;
-
-    if (side < ($('.z_first').offset().left + first)) side = ($('.z_first').offset().left + first) - side;
-    else if (side > ($(window).width() - $('.z_table_wrapper').offset().left)) side = ($(window).width() - $('.z_table_wrapper').offset().left) - side;
-    else side = 0;
-
-    if (data.js.zEventExpanded[id] === undefined) data.js.zEventExpanded[id] = false;
-    if (data.js.zEventExpanded[id] === false) {
-        el.toggleClass('z_event_active');
-        el.css('z-index', '3');
-        el.parent().children('.z_event_info').css('margin-left', side);
-        el.parent().children('.z_event_info').children('.z_event_info_title').children('.z_event_expand').css('display', 'flex');
-        setTimeout(() =>
-                el.parent().children('.z_event_info').children('.z_event_info_title').children('.z_event_expand').animate({opacity: '1'}, 150),
-            300);
-        data.js.zEventExpanded[id] = true;
-    } else {
-        el.css('z-index', '1');
-        el.parent().children('.z_event_info').children('.z_event_info_title').children('.z_event_expand').animate({opacity: '0'}, 50);
-        setTimeout(() =>
-                el.parent().children('.z_event_info').children('.z_event_info_title').children('.z_event_expand').css('display', 'none'),
-            50);
-        setTimeout(() => {
-            el.toggleClass('z_event_active');
-            el.parent().children('.z_event_info').css('margin-left', 0);
-        }, 0);
-        data.js.zEventExpanded[id] = false;
-    }
-
-    let total = 0;
-    Object.values(data.js.zEventExpanded).map(el => total += (el === true) ? 1 : 0);
-
-    /!*let close = $('.z_event_close_all');
-    if (total > 0) {
-        close.css('visibility', 'visible');
-    } else {
-        close.css('visibility', 'hidden');
-    }*!/
-}*/
 
 export function closeEventListener() {
     $('.z_event_close').on('click', function () {
@@ -521,8 +454,15 @@ export function filterByOption(id) {
         else
             newSet = data.lawBase.filter(el => el.statusClass === '');
     }
+    else if (id.includes('act')) {
+        if (id.includes('notaccept'))
+            newSet = data.lawBase.filter(el => el.actNumber === null);
+        else
+            newSet = data.lawBase.filter(el => el.actNumber !== null);
+    }
     else if (id.includes('clear'))
         newSet = data.lawBase;
+    else throw 'unknown filter option.';
 
     if (newLawSet(newSet) === false)
         return ;

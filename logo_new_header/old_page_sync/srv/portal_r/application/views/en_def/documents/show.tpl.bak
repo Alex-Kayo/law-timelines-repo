@@ -1,0 +1,45 @@
+<div class="panel">
+  <div class="panel1">
+    <div class="panel2">
+      <div class="panel-head clr"> 
+{* mirs первірка на дозвіл на розширений показ 25.11.2011*}      
+            {if $item->i_full}
+             <a href="/fsview/{$i_id}.html" class="fslink">Збільшити зону перегляду</a>
+            {/if}
+      
+      
+      <!--<a href="#" class="print">Надрукувати</a><a href="#" class="send-friend">Надыслати другу</a>-->
+        <h3>{$current_node->t_name}</h3>
+      </div>
+      <div class="white2-panel">
+        <div class="white2-panel1">
+          <div style="padding: 10px;">
+          
+            <h1>{$item->i_name}</h1>
+            {if $item->i_full}
+            {$item->i_full}
+            {else}
+            {$item->i_anons}
+            {/if}
+
+            <br /><br />
+            
+			<ul>
+			{foreach item=data from=$attachments}
+			    <li>
+			    <a href="/uploads/documents/{$data->ia_id}.{$data->ia_type}">
+			        {$data->ia_name} &nbsp &nbsp Завантажити
+              {*      .{$data->ia_type } *}
+			    </a>
+			    </li>
+			{/foreach}
+			</ul>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

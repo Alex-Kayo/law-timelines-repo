@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="33px" viewBox="0 0 20 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Elements-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="img/coat-of-arms" transform="translate(-2.000000, 3.000000)" fill-rule="nonzero" stroke="#004BC1" stroke-width="2">
+            <g id="Group" transform="translate(3.000000, 0.000000)">
+                <path d="M9,23 L18,23 L18,3 C13.3333333,7.66666667 12.6666667,12 16,16 C12,16 9.66666667,18.3333333 9,23 Z" id="Path-4"></path>
+                <path d="M-1.58983937e-13,23 L9,23 L9,3 C4.33333333,7 3.66666667,11.3333333 7,16 C3,16 0.666666667,18.3333333 -1.58983937e-13,23 Z" id="Path-4-Copy" transform="translate(4.500000, 13.000000) scale(-1, 1) translate(-4.500000, -13.000000) "></path>
+                <path d="M9,13 C10,19 17,22 9,28 C1,22 8,19 9,13 Z" id="Path-3"></path>
+                <path d="M9,-5.32907052e-15 C11,4 9,7 9,13 C9,7 7,4 9,-5.32907052e-15 Z" id="Path-3-Copy"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="7px" height="10px" viewBox="0 0 7 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>2C3AB540-5ECD-4FE2-8C1C-5D5AD81CD4B3</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M10.707,7.0508 L9.293,8.4648 L12.828,11.9998 L9.293,15.5348 L10.707,16.9488 L14.949,12.7068 C15.34,12.3168 15.34,11.6838 14.949,11.2928 L10.707,7.0508 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI/Links/Btn-accreditation" transform="translate(-104.000000, -10.000000)">
+            <g id="Acreditation">
+                <g id="24px/outlined/icn-more-s" transform="translate(95.000000, 3.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Fill-3" fill="#0063ff" fill-rule="nonzero" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,135 @@
+
+
+        <ul class="cnav" name="incab">
+
+            <li class="n1"><a href="#" id="tm6" onmouseover="tm_over(6)" onmouseout="tm_out(6)">Склад і Cтруктура Верховної Ради</a></li>
+
+            <li class="n1"><a href="#" id="tm1" onmouseover="tm_over(1)" onmouseout="tm_out(1)">Хід пленарних засідань</a></li>
+
+            <li class="n2"><a href="#" id="tm2" onmouseover="tm_over(2)" onmouseout="tm_out(2)">Законотворча діяльність</a></li>
+
+            <li class="n3"><a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi" id="tm3" onmouseover="tm_over(3)" onmouseout="tm_out(3)">Законодавство</a></li>
+
+            <li class="n4"><a href="#" id="tm4" onmouseover="tm_over(4)" onmouseout="tm_out(4)">Міжнародна діяльність</a></li>
+
+            <li class="n5"><a href="#" id="tm5" onmouseover="tm_over(5)" onmouseout="tm_out(5)">Довідкова інформація</a></li>
+  
+
+        </ul>
+
+
+  
+
+  
+  
+  
+  <!--========== Submenu ========== -->  
+
+        <div id="dropmenu">
+
+        <p class="sublinks" id="dropmenu1" style="display:none; text-align:left;" onmouseover="tm_over(1)" onmouseout="tm_out(1)">
+
+                <a href="http://www.rada.gov.ua/zakon/FAXIV/index.htm">Оперативна інформація</a> 
+                
+       |        <a href="http://gska2.rada.gov.ua/pls/radac_gs09/pd_index_n">Розгляд питань порядку денного</a>
+
+       |        <a href="http://gska2.rada.gov.ua/pls/radac_gs09/h_index_n">Протоколи проведення пленарних засідань</a>
+
+       |        <a href="http://www.rada.gov.ua/zakon/new/STENOGR/index.htm">Стенограми пленарних засідань</a>
+
+
+
+          </p>
+
+        <p class="sublinks" id="dropmenu2" style="display:none;text-align:left;" onmouseover="tm_over(2)" onmouseout="tm_out(2)">
+
+            <a href="http://w1.c1.rada.gov.ua/pls/zweb_n/webproc2">Пошук законопроектiв</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/zweb_n/webproc555">Останні надходження законопроектів</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/zweb_n/webproc3_current">Законопроекти, що опрацьовуються в комітетах</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/site/p_bills_stand_laws">Законодавчі акти, прийняті на поточній сесії</a>
+
+
+          </p>
+
+        <p class="sublinks" id="dropmenu3" style="display:none;text-align:left;" onmouseover="tm_over(3)" onmouseout="tm_out(3)">
+
+            <a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?user=a#Find">Пошук за реквізитами</a>
+
+       |       <a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?user=n&stru=1&sp=i">Нові надходження</a>
+
+       |       <a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?user=country">Міжнародні документи</a>
+
+       |       <a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?user=termin">Термiнологiя законодавства</a>
+
+       |       <a href="http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?user=mail">Замовлення спискiв надходжень</a>
+
+
+          </p>
+
+        <p class="sublinks" id="dropmenu4" style="display:none;" onmouseover="tm_over(4)" onmouseout="tm_out(4)">
+
+            <a href="http://w1.c1.rada.gov.ua/pls/mpz/organizations.mpo_s">Міжнародні парламентські організації</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/mpz/parlaments.list">Парламенти зарубіжних країн</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/mpz/organizations.perm_delegations">Постійні делегації Верховної Ради</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/mpz/organizations.asambleas">Міжпарламентські асамблеї</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/mpz/organizations.inter_commissions">Спільні міжпарламентські комісії</a>
+
+          </p>
+
+        <p class="sublinks" id="dropmenu5" style="display:none;" onmouseover="tm_over(5)" onmouseout="tm_out(5)">
+
+           
+               <a href="http://www.rada.gov.ua/zakon/new/AWT/index.htm">Порядки денні пленарних засідань Верховної Ради</a>
+
+       |       <a href="http://www.rada.gov.ua/zakon/new/WR/index.htm">Розклади пленарних засідань Верховної Ради</a>
+
+       |           <a href="http://www.rada.gov.ua/zakon/new/WR/pd_index.html">Порядки денні сесій Верховної Ради</a>
+
+       |           <a href="#">Віртуальна екскурсія Верховною Радою</a>
+       
+
+
+          </p>
+          
+                  <p class="sublinks" id="dropmenu6" style="display:none;" onmouseover="tm_over(6)" onmouseout="tm_out(6)">
+
+                <a href="http://w1.c1.rada.gov.ua/pls/site/p_head_vru">Голова Верховної Ради</a>
+           
+       |       <a href="http://w1.c1.rada.gov.ua/pls/site/p_kerivnyky_vru">Керівництво Верховної Ради</a>
+
+       |       <a href="http://w1.c1.rada.gov.ua/pls/site/p_deputat_list">Нардні депутати України</a>
+
+       |           <a href="http://w1.c1.rada.gov.ua/pls/site/p_fractions">Депутатські фракції</a>
+       
+       |           <a href="http://w1.c1.rada.gov.ua/pls/site/p_komitis">Комітети</a>
+       
+       |           <a href="http://w1.c1.rada.gov.ua/pls/site/p_temp_komitis">Тимчасові комісії</a>
+       
+       |           <a href="http://w1.c1.rada.gov.ua/pls/site/p_aparat">Апарат</a>
+       
+
+
+          </p>
+
+
+        <!-- Default init -->
+        
+        <script  language="javascript" type="text/javascript">
+
+   var cur_id = 6;
+   
+   var def_id = cur_id;
+
+    document.getElementById('tm'+def_id).className='here';
+    document.getElementById('dropmenu'+def_id).style.display = '';
+    
+    
+    </script>
+        <!-- End Def init -->

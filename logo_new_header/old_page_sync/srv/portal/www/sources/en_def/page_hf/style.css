@@ -1,0 +1,226 @@
+/* Reset */
+@import 'reset.css';
+/* Main Styles */
+/*
+html {
+	height: 100%;
+	background: #FFF;
+	font-size: 100%;
+}
+
+body {
+	height: 100%;
+	width: 100%; 
+    padding: 0px;
+	margin: 0px;
+	background: #E9E9E5 url(/img/page_hf/body_bg.gif) repeat-y center;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	color:#000;
+}
+
+h1, h2, h3, h4, h5, h6 {font-weight: normal;}
+h1 {
+	font-size: 18px;
+	color: #111111;
+	line-height:21px;
+	font-weight: normal
+}
+.clear-fix {
+	clear: both;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+.fl_l {
+float: left
+}
+
+.fl_r {
+float: right
+}
+.wrapper {
+	position: relative;
+	width: 976px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0 10px;
+	background: #FFF
+}
+html>body .wrapper {height: auto; min-height: 100%;}
+*/
+#header {
+	height: 152px;
+	width: 100%;
+	margin: auto;
+	font-size: 16px;
+	overflow: hidden;
+	background: url(/img/page_hf/header_bg.png) repeat-x;
+}
+.header_main {
+	background: url(/img/page_hf/header.jpg) no-repeat left;
+	height: 152px;
+	width: 100%;
+}
+.header_left {
+	position: relative;
+	height: 152px;
+	width: 100%;
+}
+.header_left.ua {
+	background: url(/img/page_hf/header_left_ua.jpg) no-repeat left;
+}
+.header_left.ru {
+	background: url(/img/page_hf/header_left_ru.jpg) no-repeat left;
+}
+.header_left.en {
+	background: url(/img/page_hf/header_left_en.jpg) no-repeat left;
+}
+.logo_img, .logo_txt {
+	position: absolute;
+	display: block;
+	top: 28px;
+	left: 33px;
+	width: 75px;
+	height: 105px;
+	text-indent: -9999px;
+}
+.logo_txt {
+	top: 70px;
+	left: 125px;
+	width: 354px;
+	height: 40px;
+}
+.service_name {
+	position: absolute;
+	top: 115px;
+	left: 124px;
+	font-size: 24px;
+	line-height: 26px;
+	color: #004B84;
+	font-family: "Myriad Pro Cond", Impact,"Trebuchet MS" ;
+	font-weight: bold;
+	letter-spacing: 0px;
+}
+* html .service_name {
+	font-family:Impact;
+	font-weight: normal;
+}
+*+html .service_name {
+	font-family:Impact ;
+	font-weight: normal;
+}
+.service_name a, .service_name a:hover {
+	color: #004B84;
+	text-decoration: none;
+}
+.lang {
+	float: right;
+	padding: 10px 5px 0 0;
+}
+.lang li {
+	display:block;
+	float: left;
+	width: 36px;
+	height: 18px;
+	padding: 6px 0 0;
+	margin: 0 4px 0 0;
+	background: url(/img/page_hf/lang_bg.gif) no-repeat;
+	font-size: 11px;
+	color: #C0D5E2;
+	text-align: center;
+	text-transform: uppercase;
+}
+.lang li a, .lang li a:hover {
+	color: #C0D5E2;
+	text-decoration: none;
+}
+.lang li.active {
+	background: url(/img/page_hf/lang_bg_active.gif) no-repeat;
+	color: #FEFEFE;
+}
+.lang li.active a, .lang li.active a:hover {
+	color: #FEFEFE;
+}
+/*footer*/
+#empty {height: 68px;}
+#footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 68px;
+	width: 100%;
+}
+.footer {
+	position: relative;
+	height: 44px;
+	padding: 10px 0 13px;
+	border-top: 1px solid #F0F0EE;
+}
+.footer_ins {
+	height: 38px;
+	width: 100%;
+	overflow: hidden;
+	background: #D3DEDF url(/img/page_hf/footer_bg.gif) no-repeat center top;
+}
+.b1, .b2, .b3 {
+	display: block;
+	overflow:hidden;
+	height: 1px;
+	font-size: 1px;
+	line-height: 1px;
+}
+.b1 {
+	margin: 0 2px;
+	background: #D3DEDF;
+	border-left: 1px solid #E3EAEA;
+	border-right: 1px solid #E3EAEA;
+}
+.b2 {
+	margin: 0 1px;
+	background: #D3DEDF;
+}
+.b3 {
+	background: #D3DEDF;
+	border-left: 1px solid #E3EAEA;
+	border-right: 1px solid #E3EAEA;
+}
+.footer_menu {
+	float:left;
+	width:450px;
+	padding: 12px 0 0 15px;
+}
+.footer_menu li {
+	display: block;
+	float: left;
+	margin: 0 20px 0 0;
+	height:16px;
+}
+.footer_menu a {
+	padding: 0 0 0 20px;
+	font-size:11px;
+	line-height: 14px;
+	color: #0050AA;
+	text-decoration: none;
+	font-style: italic;
+}
+.sitemap-link {
+	background:transparent url(/img/page_hf/map.gif) no-repeat left top;
+}
+.contact-link {
+	background: url(/img/page_hf/contacts.gif) no-repeat left top;
+}
+.adress-link {
+	background: url(/img/page_hf/adress.gif) no-repeat left top;
+}
+.copy {
+	float: right;
+	padding: 8px 15px 0 0;
+	font-size: 10px;
+	line-height: 12px;
+	color: #000;
+	text-align:right;
+}
+/*end footer*/
+	

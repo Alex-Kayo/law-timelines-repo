@@ -1,0 +1,255 @@
+:root {
+    --font-semibold: 'ProbaPro-SemiBold', 'Proba Pro', sans-serif;
+    --logo-height: 90px;
+    --logo-height-mini: 50px;
+    --header-height: 218px;
+    --header-height-mini: 102px;
+    --header-padding: 3.5rem;
+    --header-padding-mini: 26px;
+    --header-bg-blue-1: #184dbd;
+    --header-bg-blue-2: #133f9f;
+    --flag-blue: #2b8fff;
+    --flag-yellow: #ffe358;
+    --navbar-height: 70px;
+}
+#header.logo_rada  {
+    background: linear-gradient(90deg, var(--header-bg-blue-1), var(--header-bg-blue-1) 50%, var(--header-bg-blue-2));
+}
+.logo_rada .navbar,
+.logo_rada .navbar.navbar-dark {
+    background: #0e327e;
+}
+.logo_rada .header_body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    height: var(--header-height);
+    padding: var(--header-padding) var(--header-padding);
+}
+.logo_rada .header_body .rada-online {
+    background-color: var(--flag-yellow);
+    display: inline-block;
+    position: relative;
+    width: max-content;
+    height: max-content;
+    margin-left: 20px;
+    padding: 0 6px 0 1px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 4px;
+    font-family: var(--font-semibold);
+    font-size: 1rem;
+    clip-path: inset(0px 0 0px -10px);
+}
+.logo_rada .header_body .rada-online:before {
+    background-color: var(--flag-yellow);
+    position: absolute;
+    content: '';
+    top: 0;
+    left: -6px;
+    width: 100%;
+    height: calc(100% + 0px);
+    border-radius: 3px;
+    transform: skew(20deg);
+    z-index: 1;
+}
+.logo_rada .header_body .rada-online > a {
+    color: black!important;
+    z-index: 2;
+}
+
+.logo_rada .header_body .services {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: max-content;
+    min-width: max-content;
+    min-height: var(--logo-height);
+}
+.logo_rada .header_body .services > :first-child > * {
+    padding-top: 0;
+}
+.logo_rada .header_body .services > :last-child > * {
+    padding-bottom: 0;
+}
+.logo_rada .header_body .services .services-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    vertical-align: center;
+}
+.logo_rada .header_body .services .profile {
+    margin-top: 0;
+}
+.logo_rada .header_body .services .lang_block {
+    display: block !important;
+    margin: 0!important;
+}
+.logo_rada .header_body .services i {
+    display: inline-block;
+    font-size: 20px;
+    width: 20px;
+}
+.logo_rada .header_body .services .i-gov-ua {
+    background: linear-gradient(90deg, var(--flag-yellow) 50%, var(--flag-blue) 50%);
+    background-clip: text;
+    color: transparent;
+    font-size: 24px;
+}
+.logo_rada .logo-main {
+    max-width: 1000px;
+    height: max-content;
+    margin: 0 0;
+}
+.logo_rada .logo-main .logo-container {
+    display: flex;
+    flex-flow: row;
+    height: var(--logo-height);
+    max-width: 100%;
+    gap: 1rem;
+}
+.logo_rada .logo-main .logo-container,
+.logo_rada .logo-main .logo-container * {
+    text-align: left;
+}
+.logo_rada .logo-main .logo-container .logo-gerb-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-flow: column;
+    gap: 4px;
+    height: 100%;
+    min-width: max-content;
+    aspect-ratio: 3 / 5;
+}
+.logo_rada .logo-main .logo-container .logo-gerb {
+    background-image: url("./images/logos/gerb_reduced.svg");
+    background-size: cover;
+    flex: 1 1 auto;
+    aspect-ratio: 3 / 5;
+}
+.logo_rada .logo-main .logo-container .logo-gerb-title {
+    flex: 0 0 24px;
+    font-family: var(--font-semibold);
+    font-size: 1.5rem;
+}
+.logo_rada .logo-main .logo-container .logo-flag-line {
+    background: linear-gradient(0deg, var(--flag-yellow) 50%, var(--flag-blue) 50%);
+    height: 100%;
+    width: 4px;
+}
+.logo_rada .logo-main .logo-container .logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    position: relative;
+    height: 100%;
+    width: 100%;/*calc(100% - calc(var(--logo-height) / 5 * 3) - 2rem - 4px);*/
+}
+.logo_rada .logo-main .logo-container .logo-text * {
+    display: flex;
+}
+.logo-main .logo-container .logo-text-top {
+    gap: calc(1rem - 4px);
+    margin-top: -5px;
+    font-family: var(--font-semibold);
+}
+.logo_rada .logo-main .logo-container .logo-text-top-main {
+    align-items: center;
+    margin-left: -2px;
+    font-size: 4rem;
+    letter-spacing: 3px;
+}
+.logo_rada .logo-main .logo-container .logo-text-top-secondary {
+    align-items: flex-end;
+    height: max-content;
+    margin-bottom: -2px;
+    line-height: 1.75rem;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+.logo_rada .logo-main .logo-container .logo-text-bottom {
+    align-items: flex-end;
+    height: 100%;
+}
+.logo_rada .logo-main .logo-container .logo-text-sub {
+    position: absolute;
+    top: calc(100% + 4px);
+    color: var(--flag-yellow);
+    font-weight: bold;
+    font-size: .95rem;
+    font-family: var(--font-semibold);
+    font-variant: small-caps;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/*-- LOGO MINI --*/
+
+.logo_rada.logo_mini .header_body {
+    height: var(--header-height-mini);
+    padding: var(--header-padding-mini) var(--header-padding);
+}
+.logo_rada.logo_mini .header_body .services {
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: var(--logo-height-mini);
+    height: 77px;/*calc(var(--logo-height-mini) + 22px);*/
+}
+.logo_rada.logo_mini .logo-main .logo-container {
+    height: var(--logo-height-mini);
+}
+.logo_rada.logo_mini .logo-main .logo-container .logo-text {
+    justify-content: center;
+}
+.logo_rada.logo_mini .logo-main .logo-container .logo-text-top-main {
+    font-size: 3rem;
+}
+.logo_rada.logo_mini .logo-main .logo-container .logo-text-top-secondary {
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.5rem;
+    font-size: 1.25rem;
+}
+.logo_rada.logo_mini .logo-main .logo-container .logo-text-top-secondary small {
+    font-size: 13px;
+    font-weight: 100;
+    font-family: 'Proba Pro', sans-serif;
+}
+
+/*-- LOGO COMMITTEE --*/
+
+.logo_rada [data-logo-category="committee"] {
+    display: none!important;
+}
+.logo_rada .logo-main.logo-committee .logo-text {
+    padding: 7px 0 0px 0;
+}
+.logo_rada .logo-main.logo-committee [data-logo-category="committee"] {
+    display: flex!important;
+}
+.logo_rada .logo-main.logo-committee [data-logo-category="main"] {
+    display: none!important;
+}
+.logo_rada .logo-main.logo-committee [data-logo-category="committee"].logo-text-top-secondary {
+    white-space: nowrap;
+}
+.logo_rada .logo-main.logo-committee [data-logo-category="committee"].logo-text-bottom {
+    font-size: 1.25rem;
+}
+
+/*-- MEDIA --*/
+
+@media screen and (max-width: 991px) {
+    .logo_rada .header_body .services {
+        display: none;
+    }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>24px/outlined/icn-rada-stats</title>
+    <desc>Created with Sketch.</desc>
+    <g id="24px/outlined/icn-rada-stats" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,22 L0,20 L1,20 L1,12 C1,11.4477153 1.44771525,11 2,11 L6,11 C6.55228475,11 7,11.4477153 7,12 L7,20 L9,20 L9,3 C9,2.44771525 9.44771525,2 10,2 L14,2 C14.5522847,2 15,2.44771525 15,3 L15,20 L17,20 L17,7 C17,6.44771525 17.4477153,6 18,6 L22,6 C22.5522847,6 23,6.44771525 23,7 L23,20 L24,20 L24,22 L0,22 Z M5,13 L3,13 L3,20 L5,20 L5,13 Z M13,19 L11,20 L13,20 L13,19 Z M21,8 L19,8 L19,20 L21,20 L21,8 Z M13,15 L11,16 L11,18 L13,17 L13,15 Z M13,11 L11,12 L11,14 L13,13 L13,11 Z M13,7 L11,8 L11,10 L13,9 L13,7 Z M13,4 L11,4 L11,6 L13,5 L13,4 Z" id="Combined-Shape" fill="#1E54A8"></path>
+    </g>
+</svg>

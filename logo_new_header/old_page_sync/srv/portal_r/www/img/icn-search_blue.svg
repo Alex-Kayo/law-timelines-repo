@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>54A46220-FF83-497A-875E-2721138C5939</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M10.9961,17.9927 C7.1391,17.9927 4.0001,14.8537 4.0001,10.9967 C4.0001,7.1387 7.1391,3.9997 10.9961,3.9997 C14.8531,3.9997 17.9921,7.1387 17.9921,10.9967 C17.9921,14.8537 14.8531,17.9927 10.9961,17.9927 M21.9961,20.5827 L18.0181,16.6047 C19.2501,15.0657 19.9921,13.1177 19.9921,10.9967 C19.9921,6.0357 15.9571,1.9997 10.9961,1.9997 C6.0351,1.9997 2.0001,6.0357 2.0001,10.9967 C2.0001,15.9577 6.0351,19.9927 10.9961,19.9927 C13.1171,19.9927 15.0641,19.2507 16.6041,18.0187 L20.5821,21.9967 C20.9731,22.3877 21.6051,22.3877 21.9961,21.9967 C22.3871,21.6057 22.3871,20.9727 21.9961,20.5827" id="path-1"></path>
+    </defs>
+    <g id="Index-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="1">
+        <g id="Index-003" transform="translate(-858.000000, -3658.000000)">
+            <g id="Law-Projects-Block" transform="translate(270.000000, 3586.000000)">
+                <g id="Tabs" transform="translate(0.000000, 52.000000)">
+                    <g id="24px/outlined/icn-search" transform="translate(586.000000, 18.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Fill-1" fill="#004BC1" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -16,20 +16,29 @@ export function setSoloTimeGraph(el) {
 
         for (let i = 0; i < steps.length; i++) {
             stepsHTML += `
-                <div class="step-circle step-${steps[i].step} ${(steps[i].class !== undefined) ? steps[i].class : ''} ${(steps[i].active === 1) ? 'z_active' : ''}"
-                rel="tooltip" data-icon="${escText(data.stepsParams[steps[i].step].text)}" data-toggle="tooltip" data-placement="top" data-html="true" title=""
-                    data-original-title="${steps[i].title}">${data.stepsParams[steps[i].step].text}</div>
-                ${(steps[i]['small'] !== undefined) ? `
+                ${(steps[i]['small'] !== undefined && i === steps.length - 1) ? `
                     <div class="z_solo_tg_steps_link z_small z_active" style="background-color:var(${'--prj_' + steps[i]['small']})"></div>
                     <div class="step-circle step-${steps[i]['small']} z_small z_active"
                     rel="tooltip" data-toggle="tooltip" data-placement="top" data-html="true" title=""
                     data-original-title="${steps[i].small_title}">${data.stepsParams[steps[i]['small']].text}</div>
                     ` : ''}
-                ${(i < steps.length - 1) ? `<div class="z_solo_tg_steps_link ${(steps[i + 1].active === 1) ? 'z_active' : ''}"
+                ${(i === steps.length - 1) ? `<div class="z_solo_tg_steps_link ${(steps[i].active === 1) ? 'z_active' : ''}"
+                    style="background-color:var(${'--prj_' + steps[i].step})"></div>` : ''}
+                
+                <div class="step-circle step-${steps[i].step} ${(steps[i].class !== undefined) ? steps[i].class : ''} ${(steps[i].active === 1) ? 'z_active' : ''}"
+                rel="tooltip" data-icon="${escText(data.stepsParams[steps[i].step].text)}" data-toggle="tooltip" data-placement="top" data-html="true" title=""
+                    data-original-title="${steps[i].title}">${data.stepsParams[steps[i].step].text}</div>
+                ${(steps[i]['small'] !== undefined && i !== steps.length - 1) ? `
+                    <div class="z_solo_tg_steps_link z_small z_active" style="background-color:var(${'--prj_' + steps[i]['small']})"></div>
+                    <div class="step-circle step-${steps[i]['small']} z_small z_active"
+                    rel="tooltip" data-toggle="tooltip" data-placement="top" data-html="true" title=""
+                    data-original-title="${steps[i].small_title}">${data.stepsParams[steps[i]['small']].text}</div>
+                    ` : ''}
+                ${(i < steps.length - 2) ? `<div class="z_solo_tg_steps_link ${(steps[i + 1].active === 1) ? 'z_active' : ''}"
                     style="background-color:var(${'--prj_' + steps[i + 1].step})"></div>` : ''}
                 `;
         }
-        stepsHTML += '</div>';
+        stepsHTML += '<div class="z_displayed_arrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div></div>';
 
 
 
